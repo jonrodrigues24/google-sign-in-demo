@@ -61,17 +61,16 @@ public class GoogleSignInService {
     }
     return task;
   }
-
   public Task<Void> signOut() {
     return client.signOut()
         .addOnCompleteListener((ignored) -> account = null);
   }
-
   private static class InstanceHolder {
 
     private static final GoogleSignInService INSTANCE = new GoogleSignInService();
 
   }
+
 
 }
 
