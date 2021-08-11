@@ -1,6 +1,5 @@
-plugins {
-    id 'com.android.application'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'androidx.navigation.safeargs'
 
 static def getProperty(String filename, String property) {
     Properties properties = new Properties()
@@ -25,7 +24,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        def connection_properties = "$projectDir/../../../services/security.properties"
+        def connection_properties = "$projectDir/../../../services/teamassignments.properties"
 
         buildConfigField "String", "CLIENT_ID", quoted(getProperty(connection_properties, "client_id"))
 
@@ -52,20 +51,31 @@ android {
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.3.0'
+
+    // Material Design components
     implementation 'com.google.android.material:material:1.4.0'
+
+    // Advanced components
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.navigation:navigation-fragment:2.3.5'
-    implementation 'androidx.navigation:navigation-ui:2.3.5'
-    //signin
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
+
+    // Navigation components
+    implementation 'androidx.fragment:fragment:1.3.6'
+    implementation "androidx.navigation:navigation-fragment:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui:$navigationVersion"
+
+    //Google sign in library
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
 
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Gson (Google Json) dependency
     implementation 'com.google.code.gson:gson:2.8.7'
 
+    // OkHttp library
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
     //Retrofit (Rest client) with ReactiveX and Gson integration
@@ -74,5 +84,20 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
+    // Lifecycle (LiveData and ViewModel) dependencies
+    def lifecycleVersion = '2.3.1'
+    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
+
+    // Room components
+    def roomVersion = '2.3.0'
+    implementation "androidx.room:room-runtime:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-rxjava2:$roomVersion"
+
+    // Stetho (inspection) library
+    implementation 'com.facebook.stetho:stetho:1.5.1'
 
 }
