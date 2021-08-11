@@ -1,9 +1,9 @@
-package edu.cnm.deepdive.googlesignindemo.service;
+package edu.cnm.deepdive.teamassignmentsandroid.service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import edu.cnm.deepdive.googlesignindemo.BuildConfig;
-import edu.cnm.deepdive.googlesignindemo.model.User;
+import edu.cnm.deepdive.teamassignmentsandroid.BuildConfig;
+import edu.cnm.deepdive.teamassignmentsandroid.model.User;
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

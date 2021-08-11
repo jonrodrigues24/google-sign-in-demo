@@ -1,20 +1,17 @@
-package edu.cnm.deepdive.googlesignindemo.controller;
+package edu.cnm.deepdive.teamassignmentsandroid.controller;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import edu.cnm.deepdive.googlesignindemo.R;
-import edu.cnm.deepdive.googlesignindemo.service.GoogleSignInService;
-import edu.cnm.deepdive.googlesignindemo.viewmodel.MainViewModel;
+import edu.cnm.deepdive.teamassignmentsandroid.R;
+import edu.cnm.deepdive.teamassignmentsandroid.service.GoogleSignInService;
+import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
 

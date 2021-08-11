@@ -17,7 +17,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "edu.cnm.deepdive.googlesignindemo"
+        applicationId "edu.cnm.deepdive.teamassignmentsandroid"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1

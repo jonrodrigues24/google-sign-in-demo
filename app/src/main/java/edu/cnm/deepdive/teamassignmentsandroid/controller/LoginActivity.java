@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.googlesignindemo.controller;
+package edu.cnm.deepdive.teamassignmentsandroid.controller;
 
 import android.content.Intent;
 import android.widget.Toast;
@@ -6,9 +6,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import edu.cnm.deepdive.googlesignindemo.R;
-import edu.cnm.deepdive.googlesignindemo.databinding.ActivityLoginBinding;
-import edu.cnm.deepdive.googlesignindemo.service.GoogleSignInService;
+import edu.cnm.deepdive.teamassignmentsandroid.databinding.ActivityLoginBinding;
+import edu.cnm.deepdive.teamassignmentsandroid.service.GoogleSignInService;
 
 public class LoginActivity extends AppCompatActivity {
 

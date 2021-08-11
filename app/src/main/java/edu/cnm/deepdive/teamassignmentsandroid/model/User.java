@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.googlesignindemo.model;
+package edu.cnm.deepdive.teamassignmentsandroid.model;
 
 import com.google.gson.annotations.Expose;
 import java.util.Date;

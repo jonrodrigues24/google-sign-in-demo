@@ -1,7 +1,7 @@
-package edu.cnm.deepdive.googlesignindemo;
+package edu.cnm.deepdive.teamassignmentsandroid;
 
 import android.app.Application;
-import edu.cnm.deepdive.googlesignindemo.service.GoogleSignInService;
+import edu.cnm.deepdive.teamassignmentsandroid.service.GoogleSignInService;
 
 public class SignInApplication extends Application {
 

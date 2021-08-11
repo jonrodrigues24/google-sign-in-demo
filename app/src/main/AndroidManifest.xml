@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="edu.cnm.deepdive.googlesignindemo">
+  package="edu.cnm.deepdive.teamassignmentsandroid">
 
   <uses-permission android:name="android.permission.INTERNET"/>
 
   <application
     android:allowBackup="false"
-    android:name=".SignInApplication"
+    android:name="edu.cnm.deepdive.teamassignmentsandroid.SignInApplication"
     android:usesCleartextTraffic="true"
     android:icon="@mipmap/ic_launcher"
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/Theme.GoogleSignInDemo">
-    <activity android:name=".controller.LoginActivity">
+    <activity android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.LoginActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
@@ -21,7 +21,7 @@
     </activity>
     <activity
       android:label="@string/app_name"
-      android:name=".controller.MainActivity"
+      android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.MainActivity"
       android:theme="@style/Theme.GoogleSignInDemo.NoActionBar">
     </activity>
   </application>

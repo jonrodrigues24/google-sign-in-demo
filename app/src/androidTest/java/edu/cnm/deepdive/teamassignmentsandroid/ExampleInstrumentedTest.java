@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.googlesignindemo;
+package edu.cnm.deepdive.teamassignmentsandroid;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

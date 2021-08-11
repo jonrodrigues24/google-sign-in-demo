@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.googlesignindemo.service;
+package edu.cnm.deepdive.teamassignmentsandroid.service;
 
 import android.app.Activity;
 import android.app.Application;
@@ -10,7 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import edu.cnm.deepdive.googlesignindemo.BuildConfig;
+import edu.cnm.deepdive.teamassignmentsandroid.BuildConfig;
 import io.reactivex.Single;
 
 public class GoogleSignInService {
