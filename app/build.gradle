@@ -25,7 +25,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        def connection_properties = "$projectDir/../../../services/security.properties"
+        def connection_properties = "$projectDir/../../../services/teamassignments.properties"
 
         buildConfigField "String", "CLIENT_ID", quoted(getProperty(connection_properties, "client_id"))
 
