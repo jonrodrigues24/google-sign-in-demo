@@ -1,22 +1,38 @@
-package edu.cnm.deepdive.teamassignmentsandroid.model;
+package edu.cnm.deepdive.teamassignmentsandroid.model.entity;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import java.util.Date;
 
+
+@Entity(
+    tableName = "user",
+    indices = {
+            @Index(value = {"oauth_key"}, unique = true),
+    }
+)
 public class User {
 
-  @Expose
+  @PrimaryKey(autoGenerate = true)
+  @ColumnInfo(name = "user_id")
   private Long id;
 
-  @Expose
+  @NonNull
   private Date connected;
 
-  @Expose
+  @NonNull
+  @ColumnInfo(name = "display_name")
   private String displayName;
 
-  @Expose
-  private Date creationDate;
+  @NonNull
+  private Date creationDate = new Date();
 
+  @NonNull
+  @ColumnInfo(name = "oauth_key")
   private String oauthKey;
 
   public Long getId() {

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import edu.cnm.deepdive.teamassignmentsandroid.model.User;
+import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
 import edu.cnm.deepdive.teamassignmentsandroid.service.UserRepository;
 
 public class MainViewModel extends AndroidViewModel {
