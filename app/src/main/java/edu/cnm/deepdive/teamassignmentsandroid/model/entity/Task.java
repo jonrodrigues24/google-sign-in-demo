@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model.entity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -31,7 +32,7 @@ public class Task {
 
   @Expose
   @ColumnInfo(name = "due_date", index = true)
-  @NonNull
+  @Nullable
   private Date dueDate;
 
   @Expose
