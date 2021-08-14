@@ -3,6 +3,7 @@ package edu.cnm.deepdive.teamassignmentsandroid.service;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.teamassignmentsandroid.BuildConfig;
+import edu.cnm.deepdive.teamassignmentsandroid.model.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
 import io.reactivex.Single;
 import okhttp3.OkHttpClient;
@@ -11,17 +12,28 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface WebServiceProxy {
+
+  @GET("users/me")
+  Single<User> getProfile(@Header("Authorization") String bearerToken);
+
+  @POST("groups")
+  Single<Group> postGroup(@Body Group group, @Header("Authorization") String bearerToken);
+
+  @PUT("groups/{groupId}/members/{userId}")
+  Single<Boolean> putMembership(@Body boolean inGroup, @Path("userId") long userId, @Path("groupId") long groupId, @Header("Authorization") String bearerToken);
 
   static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
   }
 
-  @GET("users/me")
-  Single<User> getProfile(@Header("Authorization") String bearerToken);
 
   class InstanceHolder {
 
