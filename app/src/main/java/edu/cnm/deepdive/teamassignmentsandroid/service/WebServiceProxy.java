@@ -28,7 +28,12 @@ public interface WebServiceProxy {
   Single<Group> postGroup(@Body Group group, @Header("Authorization") String bearerToken);
 
   @PUT("groups/{groupId}/members/{userId}")
-  Single<Boolean> putMembership(@Body boolean inGroup, @Path("userId") long userId, @Path("groupId") long groupId, @Header("Authorization") String bearerToken);
+  Single<Boolean> putMembership(@Body boolean inGroup, @Path("userId") long userId,
+      @Path("groupId") long groupId, @Header("Authorization") String bearerToken);
+
+  @GET("groups/{groupId}/members/{userId}")
+  Single<Boolean> getMembership(@Path("groupId") long groupId, @Path("groupId") long userId, @Header("Authorization")
+      String bearerToken);
 
   static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
@@ -49,7 +54,6 @@ public interface WebServiceProxy {
       OkHttpClient client = new OkHttpClient.Builder()
           .addInterceptor(interceptor)
           .build();
-
 
       Retrofit retrofit = new Retrofit.Builder()
           .addConverterFactory(GsonConverterFactory.create(gson))
