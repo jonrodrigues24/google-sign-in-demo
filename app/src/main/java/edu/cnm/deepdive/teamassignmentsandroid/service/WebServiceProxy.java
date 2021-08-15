@@ -32,8 +32,15 @@ public interface WebServiceProxy {
       @Path("groupId") long groupId, @Header("Authorization") String bearerToken);
 
   @GET("groups/{groupId}/members/{userId}")
-  Single<Boolean> getMembership(@Path("groupId") long groupId, @Path("groupId") long userId, @Header("Authorization")
-      String bearerToken);
+  Single<Boolean> getMembership(@Path("groupId") long groupId, @Path("groupId") long userId,
+      @Header("Authorization") String bearerToken);
+
+  @GET("groups/{id}")
+  Single<Group> getGroup(@Path("id") long id, @Header("Authorization") String bearerToken);
+
+
+  @PUT("groups/{id}")
+  Single<String> replaceName(@Path("id") long id, @Body String name, String bearerToken);
 
   static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
