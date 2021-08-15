@@ -5,8 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.teamassignmentsandroid.BuildConfig;
 import edu.cnm.deepdive.teamassignmentsandroid.model.Group;
+import edu.cnm.deepdive.teamassignmentsandroid.model.entity.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
 import io.reactivex.Single;
+import java.util.Date;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
@@ -52,10 +54,15 @@ public interface WebServiceProxy {
   Single<String> renameUser(@Path("id") long id, @Body String name, @Header("Authorization")String bearerToken);
 
 
+  //todo does adding body to all of these make sense
+  @POST("tasks")
+  Single<Task> postTask(@Body Task task,@Body User user,@Body Group group,@Body Date date, String bearerToken);
+
+
+
   static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
   }
-
 
   class InstanceHolder {
 
