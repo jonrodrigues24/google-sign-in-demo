@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.teamassignmentsandroid.service;
 
+import androidx.room.Delete;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.teamassignmentsandroid.BuildConfig;
@@ -40,7 +41,16 @@ public interface WebServiceProxy {
 
 
   @PUT("groups/{id}")
-  Single<String> replaceName(@Path("id") long id, @Body String name, String bearerToken);
+  Single<String> renameGroup(@Path("id") long id, @Body String name, @Header("Authorization") String bearerToken);
+
+
+  @GET("me/{me}")
+  Single<User> getUser(@Path("me") String bearerToken); //TODO follow up with Nick
+
+
+  @PUT("me/{id}")
+  Single<String> renameUser(@Path("id") long id, @Body String name, @Header("Authorization")String bearerToken);
+
 
   static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
