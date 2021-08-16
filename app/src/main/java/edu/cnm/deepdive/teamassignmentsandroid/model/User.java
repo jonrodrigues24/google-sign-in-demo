@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model;
 
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;

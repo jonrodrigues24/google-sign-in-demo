@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model;
 
 import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import java.util.Date;
 
 public class Task {

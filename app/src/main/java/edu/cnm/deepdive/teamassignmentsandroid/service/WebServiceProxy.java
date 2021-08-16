@@ -1,14 +1,14 @@
 package edu.cnm.deepdive.teamassignmentsandroid.service;
 
-import androidx.room.Delete;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import edu.cnm.deepdive.teamassignmentsandroid.BuildConfig;
-import edu.cnm.deepdive.teamassignmentsandroid.model.Group;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.model.entity.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
 import io.reactivex.Single;
 import java.util.Date;
+import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
@@ -40,6 +40,9 @@ public interface WebServiceProxy {
 
   @GET("groups/{id}")
   Single<Group> getGroup(@Path("id") long id, @Header("Authorization") String bearerToken);
+
+  @GET("groups")
+  Single<List<Group>> getGroups(@Header("Authorization") String bearerToken);
 
 
   @PUT("groups/{id}")
