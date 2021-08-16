@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 
+import com.google.gson.annotations.Expose;
 import edu.cnm.deepdive.teamassignmentsandroid.model.entity.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
 import java.util.Date;
@@ -7,20 +8,25 @@ import java.util.List;
 import java.util.Set;
 
 public class Group {
-
+@Expose
   private String name;
-  private long groupId;
+@Expose
+  private long id;
+  @Expose
   private User owner;
+  @Expose
   private Date creationDate;
+  @Expose
   private List<Task> tasks;
+  @Expose
   private Set<User> users;
 
   public String getName() {
     return name;
   }
 
-  public long getGroupId() {
-    return groupId;
+  public long getId() {
+    return id;
   }
 
   public void setName(String name) {

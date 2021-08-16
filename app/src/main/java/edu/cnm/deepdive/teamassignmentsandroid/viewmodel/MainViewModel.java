@@ -55,7 +55,9 @@ public class MainViewModel extends AndroidViewModel {
     pending.add(
         groupRepository.getGroups()
             .subscribe(
-                groups::postValue,
+                value -> {
+                  groups.postValue(value);
+                },
                 throwable::postValue
             )
     );
