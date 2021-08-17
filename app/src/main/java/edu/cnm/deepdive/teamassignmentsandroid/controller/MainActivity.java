@@ -77,9 +77,6 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.selectTab(tabLayout.getTabAt(position));
       }
     });
-//    viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-//    viewModel.getGroups().observe(this, (groups) ->
-//        binding.recyclerView.setAdapter(new GroupAdapter(groups, this)));
   }
 
   private ArrayList<Group> getGroupList() {
@@ -95,8 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    //   super.onCreateOptionsMenu(menu);
-    // Inflate the menu; this adds items to the action bar if it is present.
     getMenuInflater().inflate(R.menu.main_options, menu);
     return true;
   }
