@@ -5,20 +5,64 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".controller.HomeFragment">
+  tools:context=".controller.HomeFragment" >
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/group_management"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
 
 
-<TextView
-  android:id="@+id/create_group"
-  android:layout_width="0dp"
-  android:layout_height="wrap_content"
-  app:layout_constraintStart_toStartOf="parent"
-  app:layout_constraintEnd_toEndOf="parent"
-  app:layout_constraintTop_toBottomOf="@android:id/tabcontent"
-  android:text="Create Group"
+
+  <androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/create_group"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="CREATE GROUP"
+    app:layout_constraintTop_toBottomOf="@id/group_management"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
 
 
-  />
+  <androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/add_user"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="ADD USER"
+    app:layout_constraintTop_toBottomOf="@id/create_group"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+  <androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/add_task"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="ADD TASK"
+    app:layout_constraintTop_toBottomOf="@id/add_user"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+  <androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/delete_group"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="DELETE GROUP"
+    app:layout_constraintTop_toBottomOf="@id/add_task"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
+
+
+  <androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/delete_member"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:text="DELETE MEMBER"
+    app:layout_constraintTop_toBottomOf="@id/delete_group"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"/>
 
 
 
