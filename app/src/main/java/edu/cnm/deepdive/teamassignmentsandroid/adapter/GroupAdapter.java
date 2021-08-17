@@ -2,6 +2,7 @@ package edu.cnm.deepdive.teamassignmentsandroid.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,19 +10,23 @@ import edu.cnm.deepdive.teamassignmentsandroid.adapter.GroupAdapter.Holder;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.ItemGroupBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
 
 public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
   private final List<Group> groups;
-  private Context context;
+  private final Context context;
+
+  private final OnGroupClickListener listener;
+
   private final LayoutInflater inflater;
 
   public GroupAdapter(
-      List<Group> groups, Context context) {
+      List<Group> groups, Context context,
+      OnGroupClickListener listener) {
     this.groups = groups;
     this.context = context;
     inflater = LayoutInflater.from(context);
+    this.listener = listener;
   }
 
   @NonNull
@@ -56,7 +61,12 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
       Group group = groups.get(position);
       binding.groupName.setText(group.getName());
       binding.groupDescription.setText(group.getName()); //create group description methods
-      binding.getRoot();
+      binding.getRoot().setOnClickListener((v) -> listener.onGroupClick(v, position, group));
     }
   }
+
+  public interface OnGroupClickListener {
+    void onGroupClick(View view, int position, Group group);
+  }
+
 }

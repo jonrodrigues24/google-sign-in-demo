@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import edu.cnm.deepdive.teamassignmentsandroid.R;
 import edu.cnm.deepdive.teamassignmentsandroid.adapter.GroupAdapter;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentHomeBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
-import org.jetbrains.annotations.NotNull;
 
 public class HomeFragment extends Fragment {
 
@@ -31,6 +28,10 @@ public class HomeFragment extends Fragment {
     super.onViewCreated(view, savedInstanceState);
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
     viewModel.getGroups().observe(getViewLifecycleOwner(), (groups) ->
-        binding.recyclerView.setAdapter(new GroupAdapter(groups, getContext())));
+        binding.recyclerView.setAdapter(new GroupAdapter(groups, getContext(),
+            (v, pos, group) -> {
+          TasksFragment fragment = new TasksFragment();
+          fragment.show(getChildFragmentManager(), fragment.getClass().getName());
+            })));
   }
 }
