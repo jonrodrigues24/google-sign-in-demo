@@ -9,15 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentTasksBinding;
+import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 
 public class TasksFragment extends BottomSheetDialogFragment {
+
+  MainViewModel viewModel;
+  FragmentTasksBinding binding;
+
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     //TODO read any arguments passed into fragment.
   }
-
 
 
 
