@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.teamassignmentsandroid.model;
+package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 
 import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;

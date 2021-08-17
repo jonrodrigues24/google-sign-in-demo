@@ -45,7 +45,7 @@ public interface WebServiceProxy {
   Single<List<Group>> getGroups(@Header("Authorization") String bearerToken);
 
 
-  @PUT("groups/{id}")
+  @PUT("groups/{id}/name")
   Single<String> renameGroup(@Path("id") long id, @Body String name, @Header("Authorization") String bearerToken);
 
 
@@ -58,8 +58,13 @@ public interface WebServiceProxy {
 
 
   //todo does adding body to all of these make sense
-  @POST("tasks")
-  Single<Task> postTask(@Body Task task,@Body User user,@Body Group group,@Body Date date, String bearerToken);
+  @POST("groups/{groupId}/tasks")
+  Single<Task> postTask(@Body Task task,@Path("groupId") long groupId,@Header("Authorization")String bearerToken);
+
+
+  @PUT("groups/{groupId}/tasks/{taskId}/members/{memberId}")
+  Single<Boolean> putTask(@Body boolean assigned, @Path("groupId") long groupId,
+      @Path("taskId") long taskId,@Path("memberId") long memberId, @Header("Authorization") String bearerToken);
 
 
 
