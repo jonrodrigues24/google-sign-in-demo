@@ -10,6 +10,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.service.GroupRepository;
 import edu.cnm.deepdive.teamassignmentsandroid.service.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
@@ -20,6 +21,7 @@ public class MainViewModel extends AndroidViewModel {
   private final UserRepository userRepository;
   private final MutableLiveData<GoogleSignInAccount> account;
   private final MutableLiveData<User> user;
+  private final MutableLiveData<List<Task>> tasks;
   private final MutableLiveData<Throwable> throwable;
   private final MutableLiveData<List<Group>> groups;
   private final CompositeDisposable pending;
@@ -34,12 +36,21 @@ public class MainViewModel extends AndroidViewModel {
     groups = new MutableLiveData<>();
     pending = new CompositeDisposable();
     groupRepository = new GroupRepository(application);
+    tasks = new MutableLiveData<>();
     userFromServer();
     loadGroups();
   }
 
   public LiveData<List<Group>> getGroups() {
     return groups;
+  }
+
+  public MutableLiveData<List<Task>> getTasks() {
+    return tasks;
+  }
+
+  public void loadTasks(long groupId) {
+    //TODO invoke repository method to retrieve tasks from server and post into tasks mutable live data.
   }
 
   private void userFromServer() {
