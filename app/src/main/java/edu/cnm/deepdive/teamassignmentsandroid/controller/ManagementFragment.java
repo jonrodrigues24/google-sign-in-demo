@@ -4,13 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import edu.cnm.deepdive.teamassignmentsandroid.R;
+import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentMangementBinding;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
+import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 import org.jetbrains.annotations.NotNull;
 
 public class ManagementFragment extends Fragment {
+
+  private FragmentMangementBinding binding;
+  private MainViewModel viewModel;
 
   @Nullable
   @Override
@@ -19,11 +27,18 @@ public class ManagementFragment extends Fragment {
       ViewGroup container,
       Bundle savedInstanceState
   ) {
-    return inflater.inflate(R.layout.fragment_mangement, container, false);
+    binding = FragmentMangementBinding.inflate(inflater, container, false);
+    return binding.getRoot();
   }
 
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    viewModel.getOwnedGroups().observe(getViewLifecycleOwner(), (groups) -> {
+      ArrayAdapter<Group> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, groups);
+      adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+      binding.groupManagement.setAdapter(adapter);
+    });
   }
 }
