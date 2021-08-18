@@ -57,7 +57,6 @@ public interface WebServiceProxy {
   Single<String> renameUser(@Path("id") long id, @Body String name, @Header("Authorization")String bearerToken);
 
 
-  //todo does adding body to all of these make sense
   @POST("groups/{groupId}/tasks")
   Single<Task> postTask(@Body Task task,@Path("groupId") long groupId,@Header("Authorization")String bearerToken);
 
