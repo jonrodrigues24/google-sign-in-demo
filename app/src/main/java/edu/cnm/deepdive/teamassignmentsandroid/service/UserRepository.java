@@ -1,7 +1,7 @@
 package edu.cnm.deepdive.teamassignmentsandroid.service;
 
 import android.content.Context;
-import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 

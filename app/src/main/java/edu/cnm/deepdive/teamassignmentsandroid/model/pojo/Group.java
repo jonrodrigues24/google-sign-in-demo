@@ -1,8 +1,8 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 
 import com.google.gson.annotations.Expose;
-import edu.cnm.deepdive.teamassignmentsandroid.model.entity.Task;
-import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;

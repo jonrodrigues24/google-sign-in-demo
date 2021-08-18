@@ -1,6 +1,6 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 
-import edu.cnm.deepdive.teamassignmentsandroid.model.entity.User;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import java.util.Date;
 
