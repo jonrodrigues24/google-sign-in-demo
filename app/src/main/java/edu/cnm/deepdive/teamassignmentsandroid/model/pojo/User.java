@@ -1,38 +1,31 @@
-package edu.cnm.deepdive.teamassignmentsandroid.model;
+package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 
-import com.google.gson.annotations.Expose;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class User {
 
-  @Expose
   private Long id;
-
-  @Expose
   private Date connected;
-
-  @Expose
   private String displayName;
-
-  @Expose
   private Date creationDate;
-
   private String oauthKey;
+  private final List<Group> groups = new LinkedList<>();
+  private final List<Task> tasks = new LinkedList<>();
 
   public Long getId() {
     return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public Date getConnected() {
     return connected;
   }
 
-  public void setConnected(Date connected) {
-    this.connected = connected;
+  public Date getCreationDate() {
+    return creationDate;
   }
 
   public String getDisplayName() {
@@ -43,19 +36,19 @@ public class User {
     this.displayName = displayName;
   }
 
-  public Date getCreationDate() {
-    return creationDate;
-  }
-
-  public void setCreationDate(Date creationDate) {
-    this.creationDate = creationDate;
-  }
-
   public String getOauthKey() {
     return oauthKey;
   }
 
   public void setOauthKey(String oauthKey) {
     this.oauthKey = oauthKey;
+  }
+
+  public List<Group> getGroups() {
+    return groups;
+  }
+
+  public List<Task> getTasks() {
+    return tasks;
   }
 }
