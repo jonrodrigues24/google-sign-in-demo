@@ -10,12 +10,21 @@ import edu.cnm.deepdive.teamassignmentsandroid.controller.ManagementFragment;
 import org.jetbrains.annotations.NotNull;
 
 
+/**
+ * Implementation of pager adapter that represents each page as a fragment that is persistently
+ * kept in the fragment manager as long as the user can return to the page.
+ */
 public class FragmentAdapter extends FragmentStateAdapter {
 
   /**
    * Callback interface for listening to fragment lifecycle changes that happen inside the adapter.
    * @param fragmentManager Interface for interacting with Fragment objects inside the activity.
    * @param lifecycle Adds a LifecycleObserver that will be notified when the LifecycleOwner changes state
+   */
+  /**
+   * Constructor for Fragment adapter class.
+   * @param fragmentManager
+   * @param lifecycle
    */
   public FragmentAdapter(@NonNull @NotNull FragmentManager fragmentManager,
       @NonNull @NotNull Lifecycle lifecycle) {
@@ -26,6 +35,11 @@ public class FragmentAdapter extends FragmentStateAdapter {
    * Provide a new Fragment associated with the specified position
    * @param position Identify needed fragment.
    * @return Provide a new Fragment associated with the specified position
+   */
+  /**
+   * Stores positional information for tab navigation.
+   * @param position
+   * @return
    */
   @NonNull
   @NotNull
@@ -39,6 +53,10 @@ public class FragmentAdapter extends FragmentStateAdapter {
     }
   }
 
+  /**
+   * Stores number of tabs in tab navigation.
+   * @return
+   */
   @Override
   public int getItemCount() {
     return 2;
