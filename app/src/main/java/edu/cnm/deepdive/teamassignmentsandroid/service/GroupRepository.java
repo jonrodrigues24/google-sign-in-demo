@@ -37,4 +37,13 @@ public class GroupRepository {
 
   }
 
+  public Single<List<Group>> getGroups(boolean ownedOnly) {
+
+    return signInService.refreshBearerToken()
+        .observeOn(Schedulers.io())
+        .flatMap((bearerToken) -> webService.getGroups(ownedOnly, bearerToken));
+
+  }
+
+
 }

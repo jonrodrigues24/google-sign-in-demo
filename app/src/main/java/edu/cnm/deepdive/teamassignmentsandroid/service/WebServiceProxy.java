@@ -21,6 +21,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Interfaces application with database from the service.
@@ -47,9 +48,13 @@ public interface WebServiceProxy {
   @GET("groups")
   Single<List<Group>> getGroups(@Header("Authorization") String bearerToken);
 
+  @GET("groups")
+  Single<List<Group>> getGroups(@Query("ownedOnly") boolean ownedOnly, @Header("Authorization") String bearerToken);
+
 
   @PUT("groups/{id}/name")
-  Single<String> renameGroup(@Path("id") long id, @Body String name, @Header("Authorization") String bearerToken);
+  Single<String> renameGroup(@Path("id") long id, @Body String name,
+      @Header("Authorization") String bearerToken);
 
 
   @GET("me/{me}")
@@ -57,17 +62,19 @@ public interface WebServiceProxy {
 
 
   @PUT("me/{id}")
-  Single<String> renameUser(@Path("id") long id, @Body String name, @Header("Authorization")String bearerToken);
+  Single<String> renameUser(@Path("id") long id, @Body String name,
+      @Header("Authorization") String bearerToken);
 
 
   @POST("groups/{groupId}/tasks")
-  Single<Task> postTask(@Body Task task,@Path("groupId") long groupId,@Header("Authorization")String bearerToken);
+  Single<Task> postTask(@Body Task task, @Path("groupId") long groupId,
+      @Header("Authorization") String bearerToken);
 
 
   @PUT("groups/{groupId}/tasks/{taskId}/members/{memberId}")
   Single<Boolean> putTask(@Body boolean assigned, @Path("groupId") long groupId,
-      @Path("taskId") long taskId,@Path("memberId") long memberId, @Header("Authorization") String bearerToken);
-
+      @Path("taskId") long taskId, @Path("memberId") long memberId,
+      @Header("Authorization") String bearerToken);
 
 
   static WebServiceProxy getInstance() {
