@@ -93,6 +93,7 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
       binding.getRoot().setOnClickListener(this);
     }
 
+
     private void bind(int position) {
       Group group = groups.get(position);
       binding.groupName.setText(group.getName());
