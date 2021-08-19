@@ -13,7 +13,7 @@ import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import java.util.List;
 
 /**
- * Provide a binding from an app-specific data set to views that are displayed within a RecyclerView.
+ * Adapter class that transfers group live data to the recycler view in the home fragment.
  */
 public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
@@ -25,6 +25,12 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
   private final LayoutInflater inflater;
 
+  /**
+   * Allows for implementation of default listener interfaces.
+   * @param groups
+   * @param context
+   * @param listener
+   */
   public GroupAdapter(
       List<Group> groups, Context context,
       OnGroupClickListener listener) {
@@ -62,18 +68,28 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
    * Returns the total number of items in the data set held by the adapter.
    * @return
    */
+  /**
+   * Returns group size.
+   * @return
+   */
   @Override
   public int getItemCount() {
     return groups.size();
   }
 
-
+  /**
+   * Creates a viewholder for data binding by the recyclerview.
+   */
   class Holder extends RecyclerView.ViewHolder implements OnClickListener {
 
     private final ItemGroupBinding binding;
     OnGroupClickListener listener;
 
-
+    /**
+     * adds onclicklistener to viewholder.
+     * @param binding
+     * @param listener
+     */
     Holder(ItemGroupBinding binding, OnGroupClickListener listener) {
       super(binding.getRoot());
       this.binding = binding;
@@ -85,24 +101,27 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
      * bind - connects current instance to view holder.
      * @param position
      */
+
     private void bind(int position) {
       Group group = groups.get(position);
       binding.groupName.setText(group.getName());
-      binding.groupDescription.setText(group.getName()); //create group description methods
-//      binding.getRoot().setOnClickListener((v) -> listener.onGroupClick(v, position, group));
+      binding.groupDescription.setText(group.getName());
       binding.getRoot().setOnClickListener(this);
     }
 
+    /**
+     * passes position of a click to the view holder.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
       listener.onGroupClick(v, groups.get(getBindingAdapterPosition()).getId());
     }
   }
 
-/*  public interface OnGroupClickListener {
-    void onGroupClick(View view, int position, Group group);
-  }*/
-
+  /**
+   * Helper method that passes group id to the viewholder.
+   */
   public interface OnGroupClickListener {
     void onGroupClick(View view, long groupId);
   }

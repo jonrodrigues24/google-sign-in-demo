@@ -16,6 +16,9 @@ import edu.cnm.deepdive.teamassignmentsandroid.service.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
 
+/**
+ * Prepares and manages data for the activities and fragments and presents it to the UI.
+ */
 public class MainViewModel extends AndroidViewModel {
 
   private final UserRepository userRepository;
@@ -26,7 +29,11 @@ public class MainViewModel extends AndroidViewModel {
   private final MutableLiveData<List<Group>> groups;
   private final CompositeDisposable pending;
   private final GroupRepository groupRepository;
-  
+
+  /**
+   * Manages data for acitivities and fragmetns.
+   * @param application is only parameter accepted by viewModel constructor.
+   */
   public MainViewModel(@NonNull Application application) {
     super(application);
     userRepository = new UserRepository(application);
@@ -41,14 +48,26 @@ public class MainViewModel extends AndroidViewModel {
     loadGroups();
   }
 
+  /**
+   * Gets group from model.Group.
+   * @return group as live data.
+   */
   public LiveData<List<Group>> getGroups() {
     return groups;
   }
 
+  /**
+   * Gets list of tasks from TaskPojo.
+   * @return tasks as live data.
+   */
   public MutableLiveData<List<Task>> getTasks() {
     return tasks;
   }
 
+  /**
+   * Posts Task to thread to set given value.
+   * @param groupId The group's id.
+   */
   public void loadTasks(long groupId) {
     //TODO invoke repository method to retrieve tasks from server and post into tasks mutable live data.
   }
@@ -61,6 +80,9 @@ public class MainViewModel extends AndroidViewModel {
         );
   }
 
+  /**
+   * Posts Group to thread to set given value.
+   */
   public void loadGroups() {
     throwable.postValue(null);
     pending.add(
@@ -74,6 +96,9 @@ public class MainViewModel extends AndroidViewModel {
     );
   }
 
+  /**
+   * This method is called when this ViewModel is no longer used and will be destoyed.
+   */
   @OnLifecycleEvent(Event.ON_STOP)
   private void clearPending() {
     pending.clear();
