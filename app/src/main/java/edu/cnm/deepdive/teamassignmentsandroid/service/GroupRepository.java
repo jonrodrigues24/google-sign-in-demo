@@ -26,4 +26,16 @@ public class GroupRepository {
 
   }
 
+  public Single<Group> saveGroup(Group group) {
+
+    return signInService.refresh()
+        .observeOn(Schedulers.io())
+        .flatMap((token) -> webService.postGroup(group, getBearerToken(token.getIdToken()))
+            .subscribeOn(Schedulers.io()));
+
+  }
+  private String getBearerToken(String idToken) {
+    return String.format("Bearer %s", idToken);
+  }
+
 }

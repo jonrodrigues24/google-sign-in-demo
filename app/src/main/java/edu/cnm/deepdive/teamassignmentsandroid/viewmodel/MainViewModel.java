@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.teamassignmentsandroid.viewmodel;
 
 import android.app.Application;
+import android.widget.Gallery;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Lifecycle.Event;
@@ -69,6 +70,16 @@ public class MainViewModel extends AndroidViewModel {
                 value -> {
                   groups.postValue(value);
                 },
+                throwable::postValue
+            )
+    );
+  }
+
+  public void saveGroup(Group group) {
+    pending.add(
+        groupRepository.saveGroup(group)
+            .subscribe(
+                (g) -> {},
                 throwable::postValue
             )
     );

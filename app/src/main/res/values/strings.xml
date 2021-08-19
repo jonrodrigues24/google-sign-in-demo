@@ -7,4 +7,5 @@
 
 
   <string name="sign_out">Sign out</string>
+  <string name="create_group_hint">Create Group Hint</string>
 </resources>
