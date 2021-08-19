@@ -24,6 +24,7 @@ public class MainViewModel extends AndroidViewModel {
   private final MutableLiveData<List<Task>> tasks;
   private final MutableLiveData<Throwable> throwable;
   private final MutableLiveData<List<Group>> groups;
+  private final MutableLiveData<List<Group>> ownedGroups;
   private final CompositeDisposable pending;
   private final GroupRepository groupRepository;
   
@@ -34,18 +35,24 @@ public class MainViewModel extends AndroidViewModel {
     user = new MutableLiveData<>();
     throwable = new MutableLiveData<>();
     groups = new MutableLiveData<>();
+    ownedGroups = new MutableLiveData<>();
     pending = new CompositeDisposable();
     groupRepository = new GroupRepository(application);
     tasks = new MutableLiveData<>();
     userFromServer();
     loadGroups();
+    loadOwnedGroups();
   }
 
   public LiveData<List<Group>> getGroups() {
     return groups;
   }
 
-  public MutableLiveData<List<Task>> getTasks() {
+  public LiveData<List<Group>> getOwnedGroups() {
+    return ownedGroups;
+  }
+
+  public LiveData<List<Task>> getTasks() {
     return tasks;
   }
 
@@ -66,9 +73,18 @@ public class MainViewModel extends AndroidViewModel {
     pending.add(
         groupRepository.getGroups()
             .subscribe(
-                value -> {
-                  groups.postValue(value);
-                },
+                groups::postValue,
+                throwable::postValue
+            )
+    );
+  }
+
+  public void loadOwnedGroups() {
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.getGroups(true)
+            .subscribe(
+                ownedGroups::postValue,
                 throwable::postValue
             )
     );
