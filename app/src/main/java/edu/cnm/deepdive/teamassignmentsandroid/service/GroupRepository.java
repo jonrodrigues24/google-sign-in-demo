@@ -45,5 +45,11 @@ public class GroupRepository {
 
   }
 
+  public Single<Group> saveGroup(Group group) {
 
+    return signInService.refreshBearerToken()
+        .observeOn(Schedulers.io())
+        .flatMap((bearerToken) -> webService.postGroup(group, bearerToken));
+
+  }
 }

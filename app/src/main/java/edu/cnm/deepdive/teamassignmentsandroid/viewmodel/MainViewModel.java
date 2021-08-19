@@ -48,7 +48,7 @@ public class MainViewModel extends AndroidViewModel {
     tasks = new MutableLiveData<>();
     userFromServer();
     loadGroups();
-    loadOwnedGroups();
+//    loadOwnedGroups();
   }
 
   /**
@@ -103,6 +103,18 @@ public class MainViewModel extends AndroidViewModel {
         groupRepository.getGroups(true)
             .subscribe(
                 ownedGroups::postValue,
+                throwable::postValue
+            )
+    );
+  }
+
+  public void saveGroup(Group group) {
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.saveGroup(group)
+            .subscribe(
+                (g) -> loadOwnedGroups(), //TODO explore alternative of adding group to current list of
+                //TODO groups we have in live data
                 throwable::postValue
             )
     );

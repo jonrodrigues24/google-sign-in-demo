@@ -15,7 +15,7 @@ import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentTasksBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 
-public class TasksFragment extends BottomSheetDialogFragment {
+public class  TasksFragment extends BottomSheetDialogFragment {
 
   public static final String GROUP_ID_KEY = "group_id";
   private MainViewModel viewModel;

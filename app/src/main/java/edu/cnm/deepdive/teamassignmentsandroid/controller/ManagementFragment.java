@@ -28,6 +28,11 @@ public class ManagementFragment extends Fragment {
       Bundle savedInstanceState
   ) {
     binding = FragmentMangementBinding.inflate(inflater, container, false);
+    binding.createGroup.setOnClickListener((v) -> {
+      NewGroupFragment fragment = new NewGroupFragment();
+      //this is where you attach arguments if you want to pass data to the fragment.
+      fragment.show(getParentFragmentManager(), fragment.getClass().getName());
+    });
     return binding.getRoot();
   }
 
@@ -40,5 +45,11 @@ public class ManagementFragment extends Fragment {
       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
       binding.groupManagement.setAdapter(adapter);
     });
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    viewModel.loadOwnedGroups();
   }
 }
