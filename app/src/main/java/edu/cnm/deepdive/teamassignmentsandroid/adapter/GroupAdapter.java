@@ -12,6 +12,9 @@ import edu.cnm.deepdive.teamassignmentsandroid.databinding.ItemGroupBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import java.util.List;
 
+/**
+ * Provide a binding from an app-specific data set to views that are displayed within a RecyclerView.
+ */
 public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
 
@@ -31,6 +34,12 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
     this.listener = listener;
   }
 
+  /**
+   * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
+   * @param parent
+   * @param viewType
+   * @return
+   */
   @NonNull
   @Override
   public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,21 +47,32 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
     return new Holder(binding, listener);
   }
 
+  /**
+   * Called by RecyclerView to display the data at the specified position.
+   * @param holder
+   * @param position
+   */
   @Override
   public void onBindViewHolder(@NonNull Holder holder, int position) {
     holder.bind(position);
 
   }
 
+  /**
+   * Returns the total number of items in the data set held by the adapter.
+   * @return
+   */
   @Override
   public int getItemCount() {
     return groups.size();
   }
 
+
   class Holder extends RecyclerView.ViewHolder implements OnClickListener {
 
     private final ItemGroupBinding binding;
     OnGroupClickListener listener;
+
 
     Holder(ItemGroupBinding binding, OnGroupClickListener listener) {
       super(binding.getRoot());
@@ -61,6 +81,10 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
       binding.getRoot().setOnClickListener(this);
     }
 
+    /**
+     * bind - connects current instance to view holder.
+     * @param position
+     */
     private void bind(int position) {
       Group group = groups.get(position);
       binding.groupName.setText(group.getName());

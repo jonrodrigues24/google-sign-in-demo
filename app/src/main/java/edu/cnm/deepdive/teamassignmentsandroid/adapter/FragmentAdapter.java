@@ -9,13 +9,24 @@ import edu.cnm.deepdive.teamassignmentsandroid.controller.HomeFragment;
 import edu.cnm.deepdive.teamassignmentsandroid.controller.ManagementFragment;
 import org.jetbrains.annotations.NotNull;
 
+
 public class FragmentAdapter extends FragmentStateAdapter {
 
+  /**
+   * Callback interface for listening to fragment lifecycle changes that happen inside the adapter.
+   * @param fragmentManager Interface for interacting with Fragment objects inside the activity.
+   * @param lifecycle Adds a LifecycleObserver that will be notified when the LifecycleOwner changes state
+   */
   public FragmentAdapter(@NonNull @NotNull FragmentManager fragmentManager,
       @NonNull @NotNull Lifecycle lifecycle) {
     super(fragmentManager, lifecycle);
   }
 
+  /**
+   * Provide a new Fragment associated with the specified position
+   * @param position Identify needed fragment.
+   * @return Provide a new Fragment associated with the specified position
+   */
   @NonNull
   @NotNull
   @Override

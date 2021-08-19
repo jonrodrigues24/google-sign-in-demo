@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
   private RelativeLayout relativeLayout;
   private ArrayList<Group> groups;
 
+  /**
+   * Called when the activity is starting followed by initilization including tab layout.
+   * @param savedInstanceState
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -90,12 +94,24 @@ public class MainActivity extends AppCompatActivity {
     return groups;
   }
 
+  /**
+   * Prepare the Screen's standard options menu to be displayed. This is called right before the
+   * menu is shown, every time it is shown. You can use this method to efficiently enable/disable
+   * items or otherwise dynamically modify the contents.
+   * @param menu
+   * @return
+   */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.main_options, menu);
     return true;
   }
 
+  /**
+   * This hook is called whenever an item in your options menu is selected.
+   * @param item
+   * @return
+   */
   @SuppressLint("NonConstantResourceId")
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
