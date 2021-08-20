@@ -69,7 +69,7 @@ public class User {
 
   /**
    * Sets the oauth key for user.
-   * @param oauthKey
+   * @param oauthKey return in String format
    */
   public void setOauthKey(String oauthKey) {
     this.oauthKey = oauthKey;

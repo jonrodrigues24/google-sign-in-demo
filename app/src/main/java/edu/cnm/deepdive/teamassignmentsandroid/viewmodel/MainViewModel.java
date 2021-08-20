@@ -143,9 +143,9 @@ public class MainViewModel extends AndroidViewModel {
   }
 
   /**
-   *
-   * @param groupId
-   * @param task
+   * Saves a task to the database.
+   * @param groupId id required to assign task
+   * @param task is assigned to group id
    */
   public void saveTask(long groupId, Task task) {
     throwable.postValue(null);

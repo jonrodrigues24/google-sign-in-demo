@@ -15,6 +15,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class FragmentAdapter extends FragmentStateAdapter {
 
+  /**
+   * Fragment adapter will manage and observe the lifecycle of the fragment and aids view pager to transitin through tab layout.
+   * @param fragmentManager is responsible for moving fragment through the lifecycle
+   * @param lifecycle observes the state of the fragment
+   */
   public FragmentAdapter(@NonNull @NotNull FragmentManager fragmentManager,
       @NonNull @NotNull Lifecycle lifecycle) {
     super(fragmentManager, lifecycle);

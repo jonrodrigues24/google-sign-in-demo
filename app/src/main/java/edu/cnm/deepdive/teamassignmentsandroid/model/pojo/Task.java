@@ -127,7 +127,7 @@ public class Task {
 
   /**
    * Sets title of task
-   * @param title
+   * @param title is String format
    */
   public void setTitle(String title) {
     this.title = title;

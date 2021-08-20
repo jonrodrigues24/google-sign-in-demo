@@ -56,8 +56,8 @@ public class Group {
   }
 
   /**
-   * sets teh owner of the group
-   * @param owner
+   * sets the owner of the group
+   * @param owner is authenticated as user
    */
   public void setOwner(User owner) {
     this.owner = owner;
@@ -89,7 +89,7 @@ public class Group {
 
   /**
    * Sets list of tasks to the group
-   * @param tasks
+   * @param tasks of list
    */
   public void setTasks(List<Task> tasks) {
     this.tasks = tasks;

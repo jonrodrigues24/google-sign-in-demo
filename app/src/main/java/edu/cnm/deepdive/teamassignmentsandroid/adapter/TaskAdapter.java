@@ -14,7 +14,7 @@ import java.text.DateFormat;
 import java.util.List;
 
 /**
- * 
+ *  Adapter class that transfers task live data to the recycler view in the home fragment.
  */
 public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
@@ -27,9 +27,9 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
   /**
    *
-   * @param tasks
-   * @param context
-   * @param listener
+   * @param tasks will populate list
+   * @param context is the source context which contains the existing shared preferences
+   * @param listener passes task id to holder
    */
   public TaskAdapter(List<Task> tasks, Context context, OnTaskClickListener listener) {
     this.tasks = tasks;
@@ -42,7 +42,8 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
   /**
    * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
    * @param parent The view group is the base class for layouts and views containers
-   * @param viewType
+   * @param viewType default implementation of this method returns 0, making the assumption of
+   * a single view type for the adapter
    * @return returns binding holder.
    */
   @NonNull
@@ -55,7 +56,7 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
   /**
    * Called by RecyclerView to display the data at the specified position.
    * @param holder Creates a viewholder for data binding by the recyclerview
-   * @param position
+   * @param position will reflect the item at the given position
    */
   @Override
   public void onBindViewHolder(@NonNull Holder holder, int position) {
@@ -93,7 +94,7 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
     /**
      * bind - connects current instance to view holder.
-     * @param position
+     * @param position is size of list of task
      */
     private void bind(int position) {
       task = tasks.get(position);
