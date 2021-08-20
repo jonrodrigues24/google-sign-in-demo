@@ -32,7 +32,7 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
   /**
    * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
-   * @param parent
+   * @param parent The view group is the base class for layouts and views containers
    * @param viewType
    * @return returns binding holder.
    */
@@ -45,7 +45,7 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
   /**
    * Called by RecyclerView to display the data at the specified position.
-   * @param holder
+   * @param holder Creates a viewholder for data binding by the recyclerview
    * @param position
    */
   @Override
@@ -72,8 +72,8 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
     /**
      * adds onclicklistener to viewholder.
-     * @param binding
-     * @param listener
+     * @param binding A type which binds the views in a layout XML to fields
+     * @param listener Helper method that passes group id to the viewholder.
      */
     Holder(ItemTaskBinding binding, OnTaskClickListener listener) {
       super(binding.getRoot());
@@ -96,7 +96,7 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
     /**
      * passes position of a click to the view holder.
-     * @param v
+     * @param v View occupies a rectangular area on the screen and is responsible for drawing and event handling
      */
     @Override
     public void onClick(View v) {
