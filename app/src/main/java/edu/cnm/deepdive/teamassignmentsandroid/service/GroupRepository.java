@@ -37,6 +37,11 @@ public class GroupRepository {
 
   }
 
+  /**
+   * Gets List of groups.
+   * @param ownedOnly are groups authenticated by user.
+   * @return list of groups owned by user.
+   */
   public Single<List<Group>> getGroups(boolean ownedOnly) {
 
     return signInService.refreshBearerToken()
@@ -45,6 +50,11 @@ public class GroupRepository {
 
   }
 
+  /**
+   * Saves sing group to data base.
+   * @param group
+   * @return group and bearer token
+   */
   public Single<Group> saveGroup(Group group) {
 
     return signInService.refreshBearerToken()

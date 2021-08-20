@@ -20,12 +20,20 @@ import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * This fragment contains methods to get and made new groups.  It extends Bottom sheet dialog fragment
+ * to populate the bottom pop up.
+ */
 public class NewGroupFragment extends BottomSheetDialogFragment implements TextWatcher {
 
   private MainViewModel viewModel;
   private FragmentNewGroupBinding binding;
 
-
+  /**
+   * Creates the pop up dialog for inputing group data.
+   * @param savedInstanceState extends bundle to enable data to be written.
+   * @return the dialog for input
+   */
   @NonNull
   @Override
   public Dialog onCreateDialog(
@@ -41,6 +49,13 @@ public class NewGroupFragment extends BottomSheetDialogFragment implements TextW
     binding.submit.setEnabled(!name.isEmpty());
   }
 
+  /**
+   * Instantiates an XML layout.
+   * @param inflater to inflate the layout
+   * @param container implements the view group
+   * @param savedInstanceState extends the base bundle
+   * @return the binding layout
+   */
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater,
@@ -59,6 +74,11 @@ public class NewGroupFragment extends BottomSheetDialogFragment implements TextW
     return binding.getRoot();
   }
 
+  /**
+   * Called immediately after onViewCreate.
+   * @param view expands the layout and widgets
+   * @param savedInstanceState extends teh base bundle
+   */
   @Override
   public void onViewCreated(@NonNull View view,
       @Nullable Bundle savedInstanceState) {
@@ -67,16 +87,34 @@ public class NewGroupFragment extends BottomSheetDialogFragment implements TextW
 
   }
 
+  /**
+   *This method is called to notify you that, within s, the count characters beginning at start are about to be replaced by new text with length after.
+   * @param s for char sequence of data
+   * @param start the count characters beginning at start
+   * @param count the count of characters
+   * @param after characters replaced by new text with length after
+   */
   @Override
   public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
   }
 
+  /**
+   *This method is called to notify you that, within s, the count characters beginning at start have just replaced old text that had length before.
+   * @param s for char sequence of data
+   * @param start the count characters beginning at start
+   * @param before characters replaced old text that had length before
+   * @param count of characters
+   */
   @Override
   public void onTextChanged(CharSequence s, int start, int before, int count) {
 
   }
 
+  /**
+   *This method is called to notify you that, somewhere within s, the text has been changed.
+   * @param s for char sequence of data
+   */
   @Override
   public void afterTextChanged(Editable s) {
     checkSubmitConditions();
