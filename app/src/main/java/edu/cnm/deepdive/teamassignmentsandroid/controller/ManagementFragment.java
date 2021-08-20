@@ -17,6 +17,13 @@ public class ManagementFragment extends Fragment {
   private FragmentManagementBinding binding;
   private MainViewModel viewModel;
 
+  /**
+   * Called to have the fragment instantiate its user interface view
+   * @param inflater Instantiates a layout XML file into its corresponding View objects.
+   * @param container The view group is the base class for layouts and views containers
+   * @param savedInstanceState A mapping from String keys to various Parcelable values.
+   * @return a rectangular area on the screen and is responsible for drawing and event handling
+   */
   @Nullable
   @Override
   public View onCreateView(
@@ -40,6 +47,11 @@ public class ManagementFragment extends Fragment {
     return binding.getRoot();
   }
 
+  /**
+   * Called after onCreateView has returned, used to initialize subclasses before saved state is restored to view
+   * @param view View is the base class for widgets, which are used to create interactive UI components
+   * @param savedInstanceState A mapping from String keys to various Parcelable values
+   */
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
@@ -52,6 +64,9 @@ public class ManagementFragment extends Fragment {
     });
   }
 
+  /**
+   * Called when the fragment is visible to the user and actively running.
+   */
   @Override
   public void onResume() {
     super.onResume();
