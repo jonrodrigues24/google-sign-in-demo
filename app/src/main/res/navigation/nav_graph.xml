@@ -13,8 +13,7 @@
       app:argType="long"/>
   </action>
 
-<!--  <fragment-->
-<!--    android:id="@+id/HomeFragment"/>-->
+
   <fragment
     android:id="@+id/homeFragment"
     android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.HomeFragment"

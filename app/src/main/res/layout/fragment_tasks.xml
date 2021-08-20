@@ -6,7 +6,7 @@
   style="@style/Animation.Design.BottomSheetDialog"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="#fff">
+  android:background="#70A2C2">
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/tasks"

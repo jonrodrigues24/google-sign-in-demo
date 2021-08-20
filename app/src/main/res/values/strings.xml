@@ -11,4 +11,9 @@
   <string name="no_tasks">No Tasks</string>
   <string name="task_title">Task Title</string>
   <string name="description">Description</string>
+  <string name="add_group">ADD GROUP</string>
+  <string name="add_member">ADD MEMBER</string>
+  <string name="add_task">ADD TASK</string>
+  <string name="delete_group">DELETE GROUP</string>
+  <string name="delete_member">DELETE MEMBER</string>
 </resources>

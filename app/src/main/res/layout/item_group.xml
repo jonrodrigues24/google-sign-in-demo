@@ -3,11 +3,13 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  >
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  app:cardCornerRadius="8dp">
 
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#4C8BB3"
     android:padding="@dimen/half_dynamic_spacing">
 
     <ImageView
@@ -19,6 +21,7 @@
     <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      style="@style/TextAppearance.MaterialComponents.Subtitle2"
       android:id="@+id/groupName"
       android:layout_toRightOf="@id/groupIcon"
       android:text="Title"/>
@@ -27,13 +30,13 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:id="@+id/groupDescription"
+      style="@style/TextAppearance.MaterialComponents.Caption"
       android:layout_toRightOf="@id/groupIcon"
       android:layout_toEndOf="@+id/groupIcon"
       android:layout_below="@id/groupName"
       android:text="description"/>
 
 
-
-    </RelativeLayout>
+  </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
