@@ -21,7 +21,7 @@ import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * This fragment contains methods to get and made new groups.  It extends Bottom sheet dialog fragment
+ * This fragment contains methods to get and make new groups.  It extends Bottom sheet dialog fragment
  * to populate the bottom pop up.
  */
 public class NewGroupFragment extends BottomSheetDialogFragment implements TextWatcher {

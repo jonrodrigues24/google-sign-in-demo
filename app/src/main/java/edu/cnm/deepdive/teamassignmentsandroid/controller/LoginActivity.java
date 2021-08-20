@@ -9,6 +9,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.ActivityLoginBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.service.GoogleSignInService;
 
+/**
+ * This class offers the user a sign in button, then authenticates account with google sign in service.
+ */
 public class LoginActivity extends AppCompatActivity {
 
   private static final int LOGIN_REQUEST_CODE = 1000;
@@ -36,10 +39,10 @@ public class LoginActivity extends AppCompatActivity {
   }
 
   /**
-   * Hooks into activity.
-   * @param requestCode
-   * @param resultCode
-   * @param data
+   * On start up activity will fetch account information and  return a toast if credentials are required to log in.
+   * @param requestCode is set at 1000 for "pass phrase"
+   * @param resultCode result code required to pass activity
+   * @param data can be null, user will need to create account
    */
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

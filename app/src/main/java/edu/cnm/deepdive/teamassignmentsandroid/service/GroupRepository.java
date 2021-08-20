@@ -52,8 +52,8 @@ public class GroupRepository {
   }
 
   /**
-   * Saves sing group to data base.
-   * @param group
+   * Saves single group to data base.
+   * @param group is sent to database
    * @return group and bearer token
    */
   public Single<Group> saveGroup(Group group) {
@@ -64,6 +64,11 @@ public class GroupRepository {
 
   }
 
+  /**
+   * Gets List of tasks
+   * @param groupId is retrieved from service proxy
+   * @return list of tasks with id
+   */
   public Single<List<Task>> getTasks(long groupId) {
     return signInService.refreshBearerToken()
         .observeOn(Schedulers.io())

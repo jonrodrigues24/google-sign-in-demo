@@ -15,6 +15,9 @@ import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentHomeBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 
+/**
+ * This class creates the binding and inflates the Fragment layout and pasess groups and group ids to the view model.
+ */
 public class HomeFragment extends Fragment implements OnGroupClickListener {
 
   private MainViewModel viewModel;

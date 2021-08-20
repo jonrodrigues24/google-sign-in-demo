@@ -25,6 +25,9 @@ import edu.cnm.deepdive.teamassignmentsandroid.service.GoogleSignInService;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 import java.util.ArrayList;
 
+/**
+ * Called when activity is started.  Contains the tab layout binding.
+ */
 public class MainActivity extends AppCompatActivity {
 
   TabLayout tabLayout;
@@ -59,16 +62,28 @@ public class MainActivity extends AppCompatActivity {
     tabLayout.addTab(tabLayout.newTab().setText("Management"));
 
     tabLayout.addOnTabSelectedListener(new OnTabSelectedListener() {
+      /**
+       * contains the necessary calls back to the provided ViewPager so that the tab position is kept in sync
+       * @param tab gets position for present screen
+       */
       @Override
       public void onTabSelected(Tab tab) {
         pager2.setCurrentItem(tab.getPosition());
       }
 
+      /**
+       *contains the necessary calls back to the provided ViewPager so that the tab position is kept in sync
+       * @param tab current state will be interpreted as unselected
+       */
       @Override
       public void onTabUnselected(Tab tab) {
 
       }
 
+      /**
+       * Called when a tab that is already selected is chosen again by the user. Some applications may
+       * @param tab that was reselected.
+       */
       @Override
       public void onTabReselected(Tab tab) {
 
@@ -99,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
    * menu is shown, every time it is shown. You can use this method to efficiently enable/disable
    * items or otherwise dynamically modify the contents.
    * @param menu Interface for managing the items in a menu
-   * @return
+   * @return shows user the option to sign out
    */
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
   /**
    * This hook is called whenever an item in your options menu is selected.
    * @param item Interface for direct access to a previously created menu item
-   * @return
+   * @return users choice to sign out is granted on click
    */
   @SuppressLint("NonConstantResourceId")
   @Override

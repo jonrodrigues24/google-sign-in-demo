@@ -142,6 +142,11 @@ public class MainViewModel extends AndroidViewModel {
     );
   }
 
+  /**
+   *
+   * @param groupId
+   * @param task
+   */
   public void saveTask(long groupId, Task task) {
     throwable.postValue(null);
     pending.add(

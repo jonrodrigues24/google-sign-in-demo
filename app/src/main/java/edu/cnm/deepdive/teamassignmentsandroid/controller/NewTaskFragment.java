@@ -19,14 +19,25 @@ import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * This fragment contains methods to get and make new tasks.  It extends Bottom sheet dialog fragment
+ * to populate the bottom pop up.
+ */
 public class NewTaskFragment extends BottomSheetDialogFragment implements TextWatcher {
 
+  /**
+   * group id is required to assign a task to the group
+   */
   public static final String GROUP_ID_KEY = "group_id";
 
   private MainViewModel viewModel;
   private FragmentNewTaskBinding binding;
   private long groupId;
 
+  /**
+   * requests group by id for user to add a task
+   * @param savedInstanceState extends parcelable, allows instance to be written to
+   */
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -36,6 +47,11 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
     }
   }
 
+  /**
+   * Creates the pop up dialog for task input
+   * @param savedInstanceState extends parcelable, allows instance to be written to
+   * @return the dialog
+   */
   @NonNull
   @Override
   public Dialog onCreateDialog(
@@ -51,6 +67,13 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
     binding.submit.setEnabled(!name.isEmpty());
   }
 
+  /**
+   * Instantiates an XML layout.
+   * @param inflater to inflate the layout
+   * @param container implements the view group
+   * @param savedInstanceState extends the base bundle
+   * @return returns layout with on click listeners
+   */
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater,
@@ -79,6 +102,11 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
     return binding.getRoot();
   }
 
+  /**
+   * Called immediately after onViewCreate.
+   * @param view expands the layout and widgets
+   * @param savedInstanceState extends teh base bundle
+   */
   @Override
   public void onViewCreated(@NonNull View view,
       @Nullable Bundle savedInstanceState) {
@@ -87,16 +115,34 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
 
   }
 
+  /**
+   *This method is called to notify you that, within s, the count characters beginning at start are about to be replaced by new text with length after.
+   * @param s for char sequence of data
+   * @param start the count characters beginning at start
+   * @param count the count of characters
+   * @param after characters replaced by new text with length after
+   */
   @Override
   public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
   }
 
+  /**
+   *This method is called to notify you that, within s, the count characters beginning at start have just replaced old text that had length before.
+   * @param s for char sequence of data
+   * @param start the count characters beginning at start
+   * @param before characters replaced old text that had length before
+   * @param count of characters
+   */
   @Override
   public void onTextChanged(CharSequence s, int start, int before, int count) {
 
   }
 
+  /**
+   *This method is called to notify you that, somewhere within s, the text has been changed.
+   * @param s for char sequence of data
+   */
   @Override
   public void afterTextChanged(Editable s) {
     checkSubmitConditions();

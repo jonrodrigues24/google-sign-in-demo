@@ -12,6 +12,9 @@ import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentManagementBin
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 
+/**
+ * Contains layout for inflating management screen.
+ */
 public class ManagementFragment extends Fragment {
 
   private FragmentManagementBinding binding;

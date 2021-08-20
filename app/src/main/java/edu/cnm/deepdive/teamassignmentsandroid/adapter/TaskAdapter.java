@@ -13,6 +13,9 @@ import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import java.text.DateFormat;
 import java.util.List;
 
+/**
+ * 
+ */
 public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
   private final List<Task> tasks;
@@ -22,6 +25,12 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
   private final DateFormat dateFormat;
 
+  /**
+   *
+   * @param tasks
+   * @param context
+   * @param listener
+   */
   public TaskAdapter(List<Task> tasks, Context context, OnTaskClickListener listener) {
     this.tasks = tasks;
     this.context = context;
