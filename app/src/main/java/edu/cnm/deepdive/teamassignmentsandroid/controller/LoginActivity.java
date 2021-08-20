@@ -16,6 +16,10 @@ public class LoginActivity extends AppCompatActivity {
   private GoogleSignInService service;
   private ActivityLoginBinding binding;
 
+  /**
+   * Called when the activity is starting followed by initilization including tab layout.
+   * @param savedInstanceState A mapping from String keys to various Parcelable values.
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -31,6 +35,12 @@ public class LoginActivity extends AppCompatActivity {
             });
   }
 
+  /**
+   * Hooks into activity.
+   * @param requestCode
+   * @param resultCode
+   * @param data
+   */
   @Override
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     if (requestCode == LOGIN_REQUEST_CODE) {
@@ -45,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
   }
 
+  //TODO Javadocs here.
   private void switchToMain(GoogleSignInAccount account) {
     Intent intent = new Intent(this, MainActivity.class)
         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

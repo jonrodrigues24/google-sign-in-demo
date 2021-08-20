@@ -26,6 +26,12 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
     this.listener = listener;
   }
 
+  /**
+   * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
+   * @param parent
+   * @param viewType
+   * @return
+   */
   @NonNull
   @Override
   public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,11 +39,21 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
     return new Holder(binding, listener);
   }
 
+  /**
+   * Called by RecyclerView to display the data at the specified position.
+   * @param holder
+   * @param position
+   */
   @Override
   public void onBindViewHolder(@NonNull Holder holder, int position) {
     holder.bind(position);
   }
 
+  /**
+   * Returns the total number of items in the data set held by the adapter.
+   * Returns task size.
+   * @return
+   */
   @Override
   public int getItemCount() {
     return tasks.size();
@@ -48,6 +64,12 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
     private final ItemTaskBinding binding;
     OnTaskClickListener listener;
 
+
+    /**
+     * adds onclicklistener to viewholder.
+     * @param binding
+     * @param listener
+     */
     Holder(ItemTaskBinding binding, OnTaskClickListener listener) {
       super(binding.getRoot());
       this.binding = binding;
@@ -55,6 +77,10 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
       binding.getRoot().setOnClickListener(this);
     }
 
+    /**
+     * bind - connects current instance to view holder.
+     * @param position
+     */
     private void bind(int position) {
       Task task = tasks.get(position);
       binding.taskTitle.setText(task.getTitle());
@@ -62,12 +88,19 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
       binding.getRoot().setOnClickListener(this);
     }
 
+    /**
+     * passes position of a click to the view holder.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
       listener.onTaskClick(v, tasks.get(getBindingAdapterPosition()).getId());
     }
   }
 
+  /**
+   * Helper method that passes task id to the viewholder.
+   */
   public interface OnTaskClickListener {
 
     void onTaskClick(View view, long taskId);
