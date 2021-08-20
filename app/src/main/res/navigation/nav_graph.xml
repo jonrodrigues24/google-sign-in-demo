@@ -24,7 +24,7 @@
     android:id="@+id/managementFragment"
     android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.ManagementFragment"
     android:label="fragment_mangement"
-    tools:layout="@layout/fragment_mangement"/>
+    tools:layout="@layout/fragment_management"/>
 
   <dialog
     android:id="@+id/task_dialog"

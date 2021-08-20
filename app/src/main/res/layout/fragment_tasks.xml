@@ -9,14 +9,23 @@
   android:background="#fff">
 
   <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recycler_view"
+    android:id="@+id/tasks"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     android:orientation="vertical"
-    android:padding="6dp"
-    android:visibility="visible">
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:visibility="visible"/>
 
-  </androidx.recyclerview.widget.RecyclerView>
+  <TextView
+    android:id="@+id/no_tasks"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    android:text="@string/no_tasks"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

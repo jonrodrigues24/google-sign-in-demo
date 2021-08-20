@@ -16,6 +16,9 @@ import edu.cnm.deepdive.teamassignmentsandroid.service.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
 
+/**
+ * Prepares and manages data for the activities and fragments and presents it to the UI.
+ */
 public class MainViewModel extends AndroidViewModel {
 
   private final UserRepository userRepository;
@@ -24,9 +27,14 @@ public class MainViewModel extends AndroidViewModel {
   private final MutableLiveData<List<Task>> tasks;
   private final MutableLiveData<Throwable> throwable;
   private final MutableLiveData<List<Group>> groups;
+  private final MutableLiveData<List<Group>> ownedGroups;
   private final CompositeDisposable pending;
   private final GroupRepository groupRepository;
-  
+
+  /**
+   * Manages data for acitivities and fragmetns.
+   * @param application is only parameter accepted by viewModel constructor.
+   */
   public MainViewModel(@NonNull Application application) {
     super(application);
     userRepository = new UserRepository(application);
@@ -34,23 +42,44 @@ public class MainViewModel extends AndroidViewModel {
     user = new MutableLiveData<>();
     throwable = new MutableLiveData<>();
     groups = new MutableLiveData<>();
+    ownedGroups = new MutableLiveData<>();
     pending = new CompositeDisposable();
     groupRepository = new GroupRepository(application);
     tasks = new MutableLiveData<>();
     userFromServer();
     loadGroups();
+//    loadOwnedGroups();
   }
 
+  /**
+   * Gets group from model.Group.
+   * @return group as live data.
+   */
   public LiveData<List<Group>> getGroups() {
     return groups;
   }
 
-  public MutableLiveData<List<Task>> getTasks() {
+  public LiveData<List<Group>> getOwnedGroups() {
+    return ownedGroups;
+  }
+
+  public LiveData<List<Task>> getTasks() {
     return tasks;
   }
 
+  /**
+   * Posts Task to thread to set given value.
+   * @param groupId The group's id.
+   */
   public void loadTasks(long groupId) {
-    //TODO invoke repository method to retrieve tasks from server and post into tasks mutable live data.
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.getTasks(groupId)
+            .subscribe(
+                tasks::postValue,
+                throwable::postValue
+            )
+    );
   }
 
   private void userFromServer() {
@@ -61,19 +90,57 @@ public class MainViewModel extends AndroidViewModel {
         );
   }
 
+  /**
+   * Posts Group to thread to set given value.
+   */
   public void loadGroups() {
     throwable.postValue(null);
     pending.add(
         groupRepository.getGroups()
             .subscribe(
-                value -> {
-                  groups.postValue(value);
-                },
+                groups::postValue,
                 throwable::postValue
             )
     );
   }
 
+  public void loadOwnedGroups() {
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.getGroups(true)
+            .subscribe(
+                ownedGroups::postValue,
+                throwable::postValue
+            )
+    );
+  }
+
+  public void saveGroup(Group group) {
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.saveGroup(group)
+            .subscribe(
+                (g) -> loadOwnedGroups(), //TODO explore alternative of adding group to current list of
+                //TODO groups we have in live data
+                throwable::postValue
+            )
+    );
+  }
+
+  public void saveTask(long groupId, Task task) {
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.saveTask(groupId, task)
+            .subscribe(
+                (t) ->{},
+                throwable::postValue
+            )
+    );
+  }
+
+  /**
+   * This method is called when this ViewModel is no longer used and will be destoyed.
+   */
   @OnLifecycleEvent(Event.ON_STOP)
   private void clearPending() {
     pending.clear();

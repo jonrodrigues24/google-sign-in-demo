@@ -13,6 +13,9 @@ import com.google.android.gms.tasks.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.BuildConfig;
 import io.reactivex.Single;
 
+/**
+ * Uses Google Sign-In to authenticate a user with Google credentials.
+ */
 public class GoogleSignInService {
 
   private static Application context;
@@ -33,6 +36,10 @@ public class GoogleSignInService {
     client = GoogleSignIn.getClient(context, options);
   }
 
+  /**
+   * Sets context for Application.
+   * @param context
+   */
   public static void setContext(Application context) {
     GoogleSignInService.context = context;
   }

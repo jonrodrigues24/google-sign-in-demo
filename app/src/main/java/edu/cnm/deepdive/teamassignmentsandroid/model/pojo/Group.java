@@ -1,8 +1,7 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 
+import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
-import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
-import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -63,5 +62,11 @@ public class Group {
 
   public void setUsers(Set<User> users) {
     this.users = users;
+  }
+
+  @NonNull
+  @Override
+  public String toString() {
+    return name;
   }
 }

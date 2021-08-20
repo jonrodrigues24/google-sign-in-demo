@@ -9,6 +9,10 @@ import edu.cnm.deepdive.teamassignmentsandroid.controller.HomeFragment;
 import edu.cnm.deepdive.teamassignmentsandroid.controller.ManagementFragment;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Implementation of pager adapter that represents each page as a fragment that is persistently
+ * kept in the fragment manager as long as the user can return to the page.
+ */
 public class FragmentAdapter extends FragmentStateAdapter {
 
   public FragmentAdapter(@NonNull @NotNull FragmentManager fragmentManager,
@@ -16,6 +20,11 @@ public class FragmentAdapter extends FragmentStateAdapter {
     super(fragmentManager, lifecycle);
   }
 
+  /**
+   * Provide a new Fragment associated with the specified position
+   * @param position Identify needed fragment.
+   * @return Provide a new Fragment associated with the specified position
+   */
   @NonNull
   @NotNull
   @Override
@@ -28,6 +37,10 @@ public class FragmentAdapter extends FragmentStateAdapter {
     }
   }
 
+  /**
+   * Stores number of tabs in tab navigation.
+   * @return
+   */
   @Override
   public int getItemCount() {
     return 2;
