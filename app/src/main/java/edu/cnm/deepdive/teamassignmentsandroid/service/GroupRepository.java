@@ -2,6 +2,7 @@ package edu.cnm.deepdive.teamassignmentsandroid.service;
 
 import android.content.Context;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.util.List;
@@ -52,4 +53,17 @@ public class GroupRepository {
         .flatMap((bearerToken) -> webService.postGroup(group, bearerToken));
 
   }
+
+  public Single<List<Task>> getTasks(long groupId) {
+    return signInService.refreshBearerToken()
+        .observeOn(Schedulers.io())
+        .flatMap((bearerToken) -> webService.getTasks(groupId, bearerToken));
+  }
+
+  public Single<Task> saveTask(long groupId, Task task) {
+    return signInService.refreshBearerToken()
+        .observeOn(Schedulers.io())
+        .flatMap((bearerToken) -> webService.postTask(task, groupId, bearerToken));
+  }
+
 }

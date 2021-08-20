@@ -72,7 +72,14 @@ public class MainViewModel extends AndroidViewModel {
    * @param groupId The group's id.
    */
   public void loadTasks(long groupId) {
-    //TODO invoke repository method to retrieve tasks from server and post into tasks mutable live data.
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.getTasks(groupId)
+            .subscribe(
+                tasks::postValue,
+                throwable::postValue
+            )
+    );
   }
 
   private void userFromServer() {
@@ -115,6 +122,17 @@ public class MainViewModel extends AndroidViewModel {
             .subscribe(
                 (g) -> loadOwnedGroups(), //TODO explore alternative of adding group to current list of
                 //TODO groups we have in live data
+                throwable::postValue
+            )
+    );
+  }
+
+  public void saveTask(long groupId, Task task) {
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.saveTask(groupId, task)
+            .subscribe(
+                (t) ->{},
                 throwable::postValue
             )
     );

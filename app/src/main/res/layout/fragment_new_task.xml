@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:padding="8dp">
+
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/title_layout"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:hintEnabled="true"
+    app:hintAnimationEnabled="true"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/submit">
+
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="text"
+      android:hint="@string/task_title"/>
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <ImageButton
+    android:id="@+id/submit"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:src="@drawable/ic_check"
+    android:background="?android:selectableItemBackground"
+    android:tint="@color/submit"
+    app:layout_constraintTop_toTopOf="@id/title_layout"
+    app:layout_constraintEnd_toStartOf="@id/cancel"
+    app:layout_constraintBottom_toBottomOf="@+id/title_layout"/>
+
+  <ImageButton
+    android:id="@+id/cancel"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:src="@drawable/ic_cancel"
+    android:background="?android:selectableItemBackground"
+    android:tint="@color/cancel"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="@id/title_layout"
+    app:layout_constraintBottom_toBottomOf="@id/title_layout"
+    />
+
+  <DatePicker
+    android:id="@+id/due_date"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    app:layout_constraintTop_toBottomOf="@id/title_layout"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:datePickerMode="spinner"
+    android:calendarViewShown="false"/>
+
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/description_layout"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/half_dynamic_spacing"
+    app:hintEnabled="true"
+    app:hintAnimationEnabled="true"
+    app:layout_constraintTop_toBottomOf="@id/due_date"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:inputType="textMultiLine"
+      android:minLines="3"
+      android:maxLines="6"
+      android:hint="@string/description"/>
+  </com.google.android.material.textfield.TextInputLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

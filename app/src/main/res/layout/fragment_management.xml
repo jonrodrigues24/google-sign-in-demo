@@ -5,6 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:padding="@dimen/half_dynamic_spacing"
   tools:context=".controller.HomeFragment">
 
   <Spinner
@@ -13,7 +14,7 @@
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="4dp"
+    android:layout_margin="@dimen/half_dynamic_spacing"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -21,26 +22,15 @@
     android:tooltipText="Groups"/>
 
 
-  <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/create_group_layout"
+  <androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/create_group"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:text="Add Group"
     app:layout_constraintTop_toBottomOf="@id/group_management"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:hintEnabled="true"
-
-    >
-
-    <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/create_group"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="4dp"
-      android:inputType="text"
-      android:hint="@string/create_group_hint"/>
-  </com.google.android.material.textfield.TextInputLayout>
-
+    app:layout_constraintStart_toStartOf="parent"/>
 
   <androidx.appcompat.widget.AppCompatButton
     android:id="@+id/add_user"
@@ -48,7 +38,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:text="ADD USER"
-    app:layout_constraintTop_toBottomOf="@id/create_group_layout"
+    app:layout_constraintTop_toBottomOf="@id/create_group"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"/>
 

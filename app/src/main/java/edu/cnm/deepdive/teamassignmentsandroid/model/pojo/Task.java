@@ -1,22 +1,29 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 
+import com.google.gson.annotations.Expose;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import java.util.Date;
 
 public class Task {
 
-
+  @Expose
   private Long id;
+  @Expose
   private User user;
+  @Expose
   private Group group;
+  @Expose
   private Date postDate;
+  @Expose
   private Date dueDate;
+  @Expose
   private boolean completed;
+  @Expose
   private boolean confirmedComplete;
-
+  @Expose
   private String title;
-
+  @Expose
   private String description;
 
   public Long getId() {

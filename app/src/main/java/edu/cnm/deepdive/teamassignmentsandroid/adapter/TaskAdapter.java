@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import edu.cnm.deepdive.teamassignmentsandroid.adapter.TaskAdapter.Holder;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.ItemTaskBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
+import java.text.DateFormat;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<Holder> {
@@ -19,11 +20,14 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
   private final LayoutInflater inflater;
   private final OnTaskClickListener listener;
 
+  private final DateFormat dateFormat;
+
   public TaskAdapter(List<Task> tasks, Context context, OnTaskClickListener listener) {
     this.tasks = tasks;
     this.context = context;
     inflater = LayoutInflater.from(context);
     this.listener = listener;
+    dateFormat = android.text.format.DateFormat.getDateFormat(context);
   }
 
   @NonNull
@@ -47,6 +51,7 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
     private final ItemTaskBinding binding;
     OnTaskClickListener listener;
+    private Task task;
 
     Holder(ItemTaskBinding binding, OnTaskClickListener listener) {
       super(binding.getRoot());
@@ -56,15 +61,16 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
     }
 
     private void bind(int position) {
-      Task task = tasks.get(position);
+      task = tasks.get(position);
       binding.taskTitle.setText(task.getTitle());
       binding.taskDescription.setText(task.getDescription());
+      binding.dueDate.setText(dateFormat.format(task.getDueDate()));
       binding.getRoot().setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-      listener.onTaskClick(v, tasks.get(getBindingAdapterPosition()).getId());
+      listener.onTaskClick(v, task.getId());
     }
   }
 

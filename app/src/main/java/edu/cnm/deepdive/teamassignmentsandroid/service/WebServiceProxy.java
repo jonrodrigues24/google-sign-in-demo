@@ -76,6 +76,8 @@ public interface WebServiceProxy {
       @Path("taskId") long taskId, @Path("memberId") long memberId,
       @Header("Authorization") String bearerToken);
 
+  @GET("groups/{groupId}/tasks")
+  Single<List<Task>> getTasks (@Path("groupId") long groupId, @Header("Authorization") String bearerToken);
 
   static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
@@ -89,6 +91,7 @@ public interface WebServiceProxy {
     static {
       Gson gson = new GsonBuilder()
           .excludeFieldsWithoutExposeAnnotation()
+          .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
           .create();
       HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
       interceptor.setLevel((BuildConfig.DEBUG) ? Level.BODY : Level.NONE);

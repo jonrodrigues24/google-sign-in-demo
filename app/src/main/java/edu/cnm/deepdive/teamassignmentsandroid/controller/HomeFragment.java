@@ -33,7 +33,7 @@ public class HomeFragment extends Fragment implements OnGroupClickListener {
     super.onViewCreated(view, savedInstanceState);
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
     viewModel.getGroups().observe(getViewLifecycleOwner(), (groups) ->
-        binding.recyclerView.setAdapter(new GroupAdapter(groups, getContext(),
+        binding.groups.setAdapter(new GroupAdapter(groups, getContext(),
             (v, groupId) ->
             {
               TasksFragment fragment = new TasksFragment();

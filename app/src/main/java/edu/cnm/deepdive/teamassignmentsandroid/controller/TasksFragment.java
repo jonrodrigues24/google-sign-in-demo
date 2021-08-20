@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import edu.cnm.deepdive.teamassignmentsandroid.adapter.TaskAdapter;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentTasksBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
@@ -41,8 +42,7 @@ public class  TasksFragment extends BottomSheetDialogFragment {
   public View onCreateView(@NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    //TODO return the view inflated while creating the dialog
-    FragmentTasksBinding binding = FragmentTasksBinding.inflate(inflater, container, false);
+    binding = FragmentTasksBinding.inflate(inflater, container, false);
     return binding.getRoot();
   }
 
@@ -52,7 +52,17 @@ public class  TasksFragment extends BottomSheetDialogFragment {
     super.onViewCreated(view, savedInstanceState);
     viewModel = new ViewModelProvider(this).get(MainViewModel.class);
     viewModel.getTasks().observe(getViewLifecycleOwner(), (tasks) -> {
-      //TODO create adapter and pass tasks to constructor. then attack adapter to recycler view.
+      if (!tasks.isEmpty()) {
+        binding.noTasks.setVisibility(View.GONE);
+        binding.tasks.setVisibility(View.VISIBLE);
+        TaskAdapter adapter = new TaskAdapter(tasks, getContext(), (v, taskId) -> {
+          Log.d(getClass().getSimpleName(), String.valueOf(taskId));
+        });
+        binding.tasks.setAdapter(adapter);
+      } else {
+        binding.noTasks.setVisibility(View.VISIBLE);
+        binding.tasks.setVisibility(View.GONE);
+      }
     });
     viewModel.loadTasks(groupId);
   }
