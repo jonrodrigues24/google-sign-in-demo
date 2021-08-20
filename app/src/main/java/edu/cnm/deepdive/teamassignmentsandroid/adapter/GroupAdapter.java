@@ -45,7 +45,7 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
    * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
    * @param parent The view group is the base class for layouts and views containers
    * @param viewType
-   * @return
+   * @return returns binding holder.
    */
   @NonNull
   @Override
@@ -67,11 +67,8 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
   /**
    * Returns the total number of items in the data set held by the adapter.
-   * @return
-   */
-  /**
-   * Returns group size.
-   * @return
+   *
+   * @return group size.
    */
   @Override
   public int getItemCount() {

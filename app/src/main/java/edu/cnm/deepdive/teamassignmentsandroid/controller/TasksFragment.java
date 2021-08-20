@@ -51,7 +51,7 @@ public class  TasksFragment extends BottomSheetDialogFragment {
    * @param inflater to inflate the layout
    * @param container implements the view group
    * @param savedInstanceState extends the base bundle
-   * @return the binding layout
+   * @return a rectangular area on the screen and is responsible for drawing and event handling
    */
   @Nullable
   @Override

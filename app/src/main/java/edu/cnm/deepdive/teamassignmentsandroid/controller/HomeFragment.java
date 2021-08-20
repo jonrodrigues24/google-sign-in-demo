@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment implements OnGroupClickListener {
    * @param inflater Instantiates a layout XML file into its corresponding View objects.
    * @param container The view group is the base class for layouts and views containers
    * @param savedInstanceState A mapping from String keys to various Parcelable values.
-   * @return
+   * @return returns a rectangular area on the screen and is responsible for drawing and event handling
    */
   @Nullable
   @Override
