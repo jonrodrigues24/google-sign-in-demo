@@ -44,14 +44,26 @@ public class GoogleSignInService {
     GoogleSignInService.context = context;
   }
 
+  /**
+   * Gets Instance of google sign in service.
+   * @return returns instance of google sign in serive.
+   */
   public static GoogleSignInService getInstance() {
     return InstanceHolder.INSTANCE;
   }
 
+  /**
+   * Will retrieve users account once sign in is successful.
+   * @return users account once authenticated.
+   */
   public GoogleSignInAccount getAccount() {
     return account;
   }
 
+  /**
+   * Will refresh users account for secure connection without need to log in again.
+   * @return return single account
+   */
   public Single<GoogleSignInAccount> refresh() {
     return Single.create((emitter) ->
         client.silentSignIn()
@@ -61,17 +73,31 @@ public class GoogleSignInService {
     );
   }
 
+  /**
+   * User credentials will be sent for authentication.
+   * @return bearer token on refresh.
+   */
   public Single<String> refreshBearerToken() {
     return refresh()
         .map((account) -> String.format(BEARER_TOKEN_FORMAT, account.getIdToken()));
   }
 
+  /**
+   * Starts sign in process for login activity.
+   * @param activity making the call
+   * @param requestCode to verify account
+   */
   public void startSignIn(Activity activity, int requestCode) {
     account = null;
     Intent intent = client.getSignInIntent();
     activity.startActivityForResult(intent, requestCode);
   }
 
+  /**
+   * Task to complete the sign in process.
+   * @param data for Intent of user
+   * @return Task to complete sign in.
+   */
   public Task<GoogleSignInAccount> completeSignIn(Intent data) {
     Task<GoogleSignInAccount> task = null;
     try {
@@ -83,6 +109,10 @@ public class GoogleSignInService {
     return task;
   }
 
+  /**
+   * Task to sign user out of account.
+   * @return Task to sign out user.
+   */
   public Task<Void> signOut() {
     return client.signOut()
         .addOnCompleteListener((ignored) -> setAccount(null));

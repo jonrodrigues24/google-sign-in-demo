@@ -59,10 +59,18 @@ public class MainViewModel extends AndroidViewModel {
     return groups;
   }
 
+  /**
+   * Gets Owned groups from management fragment.
+   * @return list of owned groups.
+   */
   public LiveData<List<Group>> getOwnedGroups() {
     return ownedGroups;
   }
 
+  /**
+   * Gets tasks from pojo.
+   * @return list of tasks.
+   */
   public LiveData<List<Task>> getTasks() {
     return tasks;
   }
@@ -104,6 +112,9 @@ public class MainViewModel extends AndroidViewModel {
     );
   }
 
+  /**
+   * Groups will be loaded from the database.
+   */
   public void loadOwnedGroups() {
     throwable.postValue(null);
     pending.add(
@@ -115,6 +126,10 @@ public class MainViewModel extends AndroidViewModel {
     );
   }
 
+  /**
+   * Groups come from management fragment and gets saved to the database.
+   * @param  group will be saved to database.
+   */
   public void saveGroup(Group group) {
     throwable.postValue(null);
     pending.add(
@@ -139,7 +154,7 @@ public class MainViewModel extends AndroidViewModel {
   }
 
   /**
-   * This method is called when this ViewModel is no longer used and will be destoyed.
+   * This method is called when this ViewModel is no longer used and will be destroyed.
    */
   @OnLifecycleEvent(Event.ON_STOP)
   private void clearPending() {

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
   /**
    * Called when the activity is starting followed by initilization including tab layout.
-   * @param savedInstanceState
+   * @param savedInstanceState A mapping from String keys to various Parcelable values
    */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
    * Prepare the Screen's standard options menu to be displayed. This is called right before the
    * menu is shown, every time it is shown. You can use this method to efficiently enable/disable
    * items or otherwise dynamically modify the contents.
-   * @param menu
+   * @param menu Interface for managing the items in a menu
    * @return
    */
   @Override
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
   /**
    * This hook is called whenever an item in your options menu is selected.
-   * @param item
+   * @param item Interface for direct access to a previously created menu item
    * @return
    */
   @SuppressLint("NonConstantResourceId")
@@ -128,6 +128,9 @@ public class MainActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  /**
+   * Log out of application and return to the google sign in menu.
+   */
   private void logout() {
     GoogleSignInService.getInstance().signOut()
         .addOnCompleteListener((ignored) -> {
