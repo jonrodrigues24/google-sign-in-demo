@@ -17,3 +17,4 @@ public class SignInApplication extends Application {
     GoogleSignInService.setContext(this);
   }
 }
+
