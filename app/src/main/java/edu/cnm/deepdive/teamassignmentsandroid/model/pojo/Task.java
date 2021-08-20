@@ -15,6 +15,10 @@ public class Task {
   private boolean completed;
   private boolean confirmedComplete;
 
+  private String title;
+
+  private String description;
+
   public Long getId() {
     return id;
   }
@@ -57,5 +61,21 @@ public class Task {
 
   public void setConfirmedComplete(boolean confirmedComplete) {
     this.confirmedComplete = confirmedComplete;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 }
