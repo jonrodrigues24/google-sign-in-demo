@@ -15,11 +15,21 @@ import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentHomeBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 
+/**
+ * This class creates the binding and inflates the Fragment layout and pasess groups and group ids to the view model.
+ */
 public class HomeFragment extends Fragment implements OnGroupClickListener {
 
   private MainViewModel viewModel;
   private FragmentHomeBinding binding;
 
+  /**
+   * Called to have the fragment instantiate its user interface view
+   * @param inflater Instantiates a layout XML file into its corresponding View objects.
+   * @param container The view group is the base class for layouts and views containers
+   * @param savedInstanceState A mapping from String keys to various Parcelable values.
+   * @return returns a rectangular area on the screen and is responsible for drawing and event handling
+   */
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,6 +38,11 @@ public class HomeFragment extends Fragment implements OnGroupClickListener {
     return binding.getRoot();
   }
 
+  /**
+   * Called after onCreateView has returned, used to initialize subclasses before saved state is restored to view
+   * @param view View is the base class for widgets, which are used to create interactive UI components
+   * @param savedInstanceState A mapping from String keys to various Parcelable values
+   */
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
@@ -46,6 +61,9 @@ public class HomeFragment extends Fragment implements OnGroupClickListener {
   }
 
 
+  /**
+   * Helper method that passes group id to the viewholder.
+   */
   @Override
   public void onGroupClick(View view, long groupId) {
     NavGraphDirections.OpenTasks toTaskFragment

@@ -27,9 +27,10 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
   /**
    * Allows for implementation of default listener interfaces.
-   * @param groups
-   * @param context
-   * @param listener
+   * @param groups List of groups.
+   * @param context interface allows access to application-specific resources and classes
+   * @param listener Helper method that passes group id to the viewholder.
+   *
    */
   public GroupAdapter(
       List<Group> groups, Context context,
@@ -42,9 +43,9 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
   /**
    * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
-   * @param parent
+   * @param parent The view group is the base class for layouts and views containers
    * @param viewType
-   * @return
+   * @return returns binding holder.
    */
   @NonNull
   @Override
@@ -55,7 +56,7 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
   /**
    * Called by RecyclerView to display the data at the specified position.
-   * @param holder
+   * @param holder Creates a viewholder for data binding by the recyclerview
    * @param position
    */
   @Override
@@ -66,11 +67,8 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
   /**
    * Returns the total number of items in the data set held by the adapter.
-   * @return
-   */
-  /**
-   * Returns group size.
-   * @return
+   *
+   * @return group size.
    */
   @Override
   public int getItemCount() {
@@ -87,8 +85,8 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
     /**
      * adds onclicklistener to viewholder.
-     * @param binding
-     * @param listener
+     * @param binding A type which binds the views in a layout XML to fields
+     * @param listener Helper method that passes group id to the viewholder.
      */
     Holder(ItemGroupBinding binding, OnGroupClickListener listener) {
       super(binding.getRoot());
@@ -111,7 +109,7 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
     /**
      * passes position of a click to the view holder.
-     * @param v
+     * @param v View occupies a rectangular area on the screen and is responsible for drawing and event handling
      */
     @Override
     public void onClick(View v) {

@@ -38,6 +38,11 @@ public class GroupRepository {
 
   }
 
+  /**
+   * Gets List of groups.
+   * @param ownedOnly are groups authenticated by user.
+   * @return list of groups owned by user.
+   */
   public Single<List<Group>> getGroups(boolean ownedOnly) {
 
     return signInService.refreshBearerToken()
@@ -46,6 +51,11 @@ public class GroupRepository {
 
   }
 
+  /**
+   * Saves single group to data base.
+   * @param group is sent to database
+   * @return group and bearer token
+   */
   public Single<Group> saveGroup(Group group) {
 
     return signInService.refreshBearerToken()
@@ -54,6 +64,11 @@ public class GroupRepository {
 
   }
 
+  /**
+   * Gets List of tasks
+   * @param groupId is retrieved from service proxy
+   * @return list of tasks with id
+   */
   public Single<List<Task>> getTasks(long groupId) {
     return signInService.refreshBearerToken()
         .observeOn(Schedulers.io())

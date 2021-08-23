@@ -13,6 +13,9 @@ import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import java.text.DateFormat;
 import java.util.List;
 
+/**
+ *  Adapter class that transfers task live data to the recycler view in the home fragment.
+ */
 public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
   private final List<Task> tasks;
@@ -22,6 +25,12 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
   private final DateFormat dateFormat;
 
+  /**
+   *
+   * @param tasks will populate list
+   * @param context is the source context which contains the existing shared preferences
+   * @param listener passes task id to holder
+   */
   public TaskAdapter(List<Task> tasks, Context context, OnTaskClickListener listener) {
     this.tasks = tasks;
     this.context = context;
@@ -30,6 +39,13 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
     dateFormat = android.text.format.DateFormat.getDateFormat(context);
   }
 
+  /**
+   * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
+   * @param parent The view group is the base class for layouts and views containers
+   * @param viewType default implementation of this method returns 0, making the assumption of
+   * a single view type for the adapter
+   * @return returns binding holder.
+   */
   @NonNull
   @Override
   public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,11 +53,21 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
     return new Holder(binding, listener);
   }
 
+  /**
+   * Called by RecyclerView to display the data at the specified position.
+   * @param holder Creates a viewholder for data binding by the recyclerview
+   * @param position will reflect the item at the given position
+   */
   @Override
   public void onBindViewHolder(@NonNull Holder holder, int position) {
     holder.bind(position);
   }
 
+  /**
+   * Returns the total number of items in the data set held by the adapter.
+   *
+   * @return task size.
+   */
   @Override
   public int getItemCount() {
     return tasks.size();
@@ -53,6 +79,12 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
     OnTaskClickListener listener;
     private Task task;
 
+
+    /**
+     * adds onclicklistener to viewholder.
+     * @param binding A type which binds the views in a layout XML to fields
+     * @param listener Helper method that passes group id to the viewholder.
+     */
     Holder(ItemTaskBinding binding, OnTaskClickListener listener) {
       super(binding.getRoot());
       this.binding = binding;
@@ -60,6 +92,10 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
       binding.getRoot().setOnClickListener(this);
     }
 
+    /**
+     * bind - connects current instance to view holder.
+     * @param position is size of list of task
+     */
     private void bind(int position) {
       task = tasks.get(position);
       binding.taskTitle.setText(task.getTitle());
@@ -68,12 +104,19 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
       binding.getRoot().setOnClickListener(this);
     }
 
+    /**
+     * passes position of a click to the view holder.
+     * @param v View occupies a rectangular area on the screen and is responsible for drawing and event handling
+     */
     @Override
     public void onClick(View v) {
       listener.onTaskClick(v, task.getId());
     }
   }
 
+  /**
+   * Helper method that passes task id to the viewholder.
+   */
   public interface OnTaskClickListener {
 
     void onTaskClick(View view, long taskId);
