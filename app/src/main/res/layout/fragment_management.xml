@@ -5,90 +5,90 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="#70A2C2"
   android:padding="@dimen/half_dynamic_spacing"
+  android:background="#BCBABA"
   tools:context=".controller.HomeFragment">
 
   <Spinner
-    style="@style/TextAppearance.MaterialComponents.Subtitle1"
     android:id="@+id/group_management"
+    style="@style/TextAppearance.MaterialComponents.Subtitle1"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:layout_margin="@dimen/half_dynamic_spacing"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
     android:contextClickable="true"
-    android:tooltipText="Groups"/>
+    android:orientation="horizontal"
+    android:tooltipText="Groups"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
 
 
   <androidx.appcompat.widget.AppCompatButton
-    style="@style/CardView.Dark"
-    android:backgroundTint="#4c8bb3"
     android:id="@+id/create_group"
+    style="@style/CardView.Dark"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_margin="4dp"
+    android:backgroundTint="#A8D0EA"
     android:text="@string/add_group"
-    app:layout_constraintTop_toBottomOf="@id/group_management"
+    app:layout_constraintBottom_toTopOf="@id/add_user"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/add_user"/>
+    app:layout_constraintTop_toBottomOf="@id/group_management"/>
 
   <androidx.appcompat.widget.AppCompatButton
-    style="@style/CardView.Dark"
-    android:backgroundTint="#4c8bb3"
     android:id="@+id/add_user"
+    style="@style/CardView.Dark"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_margin="4dp"
+    android:backgroundTint="#A8D0EA"
     android:text="@string/add_member"
-    app:layout_constraintTop_toBottomOf="@id/create_group"
+    app:layout_constraintBottom_toTopOf="@id/add_task"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/add_task"/>
+    app:layout_constraintTop_toBottomOf="@id/create_group"/>
 
   <androidx.appcompat.widget.AppCompatButton
-    style="@style/CardView.Dark"
-    android:backgroundTint="#4c8bb3"
     android:id="@+id/add_task"
+    style="@style/CardView.Dark"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_margin="4dp"
+    android:backgroundTint="#A8D0EA"
     android:text="@string/add_task"
-    app:layout_constraintTop_toBottomOf="@id/add_user"
+    app:layout_constraintBottom_toTopOf="@id/delete_group"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/delete_group"/>
+    app:layout_constraintTop_toBottomOf="@id/add_user"/>
 
   <androidx.appcompat.widget.AppCompatButton
-    style="@style/CardView.Dark"
-    android:backgroundTint="#4c8bb3"
-
     android:id="@+id/delete_group"
+    style="@style/CardView.Dark"
+
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_margin="4dp"
+    android:backgroundTint="#A8D0EA"
     android:text="@string/delete_group"
-    app:layout_constraintTop_toBottomOf="@id/add_task"
+    app:layout_constraintBottom_toTopOf="@id/delete_member"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/delete_member"/>
+    app:layout_constraintTop_toBottomOf="@id/add_task"/>
 
 
   <androidx.appcompat.widget.AppCompatButton
-    style="@style/CardView.Dark"
-    android:backgroundTint="#4c8bb3"
     android:id="@+id/delete_member"
+    style="@style/CardView.Dark"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_margin="4dp"
+    android:backgroundTint="#A8D0EA"
     android:text="@string/delete_member"
-    app:layout_constraintTop_toBottomOf="@id/delete_group"
-    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"/>
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/delete_group"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
