@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "edu.cnm.deepdive.teamassignmentsandroid"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -81,6 +81,7 @@ dependencies {
     //Retrofit (Rest client) with ReactiveX and Gson integration
     def retrofit_version = '2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 

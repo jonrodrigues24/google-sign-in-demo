@@ -11,4 +11,10 @@
   <string name="no_tasks">No Tasks</string>
   <string name="task_title">Task Title</string>
   <string name="description">Description</string>
+  <string name="groups_label">Groups</string>
+  <string name="tasks_label">Tasks</string>
+  <string name="create_group_label">Create a new group</string>
+  <string name="create_task_label">Create a new task</string>
+  <string name="edit_group_label">Edit group</string>
+  <string name="group_tasks_label">Show Group Tasks</string>
 </resources>

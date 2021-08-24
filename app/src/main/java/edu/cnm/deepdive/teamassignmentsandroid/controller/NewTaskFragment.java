@@ -11,17 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentNewGroupBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentNewTaskBinding;
-import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
- * This fragment contains methods to get and make new tasks.  It extends Bottom sheet dialog fragment
- * to populate the bottom pop up.
+ * This fragment contains methods to get and make new tasks.  It extends Bottom sheet dialog
+ * fragment to populate the bottom pop up.
  */
 public class NewTaskFragment extends BottomSheetDialogFragment implements TextWatcher {
 
@@ -36,6 +33,7 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
 
   /**
    * requests group by id for user to add a task
+   *
    * @param savedInstanceState extends parcelable, allows instance to be written to
    */
   @Override
@@ -43,12 +41,13 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
     super.onCreate(savedInstanceState);
     Bundle args = getArguments();
     if (args != null) {
-      groupId = args.getLong(GROUP_ID_KEY);
+      groupId = NewTaskFragmentArgs.fromBundle(args).getGroupId();
     }
   }
 
   /**
    * Creates the pop up dialog for task input
+   *
    * @param savedInstanceState extends parcelable, allows instance to be written to
    * @return the dialog
    */
@@ -69,8 +68,9 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
 
   /**
    * Instantiates an XML layout.
-   * @param inflater to inflate the layout
-   * @param container implements the view group
+   *
+   * @param inflater           to inflate the layout
+   * @param container          implements the view group
    * @param savedInstanceState extends the base bundle
    * @return returns layout with on click listeners
    */
@@ -104,20 +104,24 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
 
   /**
    * Called immediately after onViewCreate.
-   * @param view expands the layout and widgets
+   *
+   * @param view               expands the layout and widgets
    * @param savedInstanceState extends teh base bundle
    */
   @Override
   public void onViewCreated(@NonNull View view,
       @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    //noinspection ConstantConditions
+    viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
 
   }
 
   /**
-   *This method is called to notify you that, within s, the count characters beginning at start are about to be replaced by new text with length after.
-   * @param s for char sequence of data
+   * This method is called to notify you that, within s, the count characters beginning at start are
+   * about to be replaced by new text with length after.
+   *
+   * @param s     for char sequence of data
    * @param start the count characters beginning at start
    * @param count the count of characters
    * @param after characters replaced by new text with length after
@@ -128,11 +132,13 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
   }
 
   /**
-   *This method is called to notify you that, within s, the count characters beginning at start have just replaced old text that had length before.
-   * @param s for char sequence of data
-   * @param start the count characters beginning at start
+   * This method is called to notify you that, within s, the count characters beginning at start
+   * have just replaced old text that had length before.
+   *
+   * @param s      for char sequence of data
+   * @param start  the count characters beginning at start
    * @param before characters replaced old text that had length before
-   * @param count of characters
+   * @param count  of characters
    */
   @Override
   public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -140,7 +146,8 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
   }
 
   /**
-   *This method is called to notify you that, somewhere within s, the text has been changed.
+   * This method is called to notify you that, somewhere within s, the text has been changed.
+   *
    * @param s for char sequence of data
    */
   @Override

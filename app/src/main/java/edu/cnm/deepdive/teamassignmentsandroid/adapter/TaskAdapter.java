@@ -100,7 +100,11 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
       task = tasks.get(position);
       binding.taskTitle.setText(task.getTitle());
       binding.taskDescription.setText(task.getDescription());
-      binding.dueDate.setText(dateFormat.format(task.getDueDate()));
+      if (task.getDueDate() != null) {
+        binding.dueDate.setText(dateFormat.format(task.getDueDate()));
+      } else {
+        binding.dueDate.setText("");
+      }
       binding.getRoot().setOnClickListener(this);
     }
 

@@ -1,39 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  >
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  app:cardCornerRadius="4dp"
+  android:layout_margin="4dp">
 
-  <RelativeLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/half_dynamic_spacing">
 
-    <ImageView
+
+    <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:id="@+id/group_name"
+      tools:text="Title"
+      style="@style/TextAppearance.MaterialComponents.Subtitle1"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/edit_group"/>
+
+    <ImageButton
+      android:id="@+id/edit_group"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:id="@+id/groupIcon"
-      android:src="@mipmap/ic_launcher"/>
+      android:src="@drawable/ic_edit"
+      android:contentDescription="@string/edit_group_label"
+      android:tooltipText="@string/edit_group_label"
+      android:background="?attr/selectableItemBackground"
+      android:padding="@dimen/half_dynamic_spacing"
+      app:layout_constraintTop_toTopOf="@id/group_name"
+      app:layout_constraintBottom_toBottomOf="@id/group_name"
+      app:layout_constraintEnd_toStartOf="@id/group_tasks"/>
 
-    <TextView
-      android:layout_width="match_parent"
+    <ImageButton
+      android:id="@+id/group_tasks"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:id="@+id/groupName"
-      android:layout_toRightOf="@id/groupIcon"
-      android:text="Title"/>
-
-    <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/groupDescription"
-      android:layout_toRightOf="@id/groupIcon"
-      android:layout_toEndOf="@+id/groupIcon"
-      android:layout_below="@id/groupName"
-      android:text="description"/>
+      android:src="@drawable/ic_list"
+      android:contentDescription="@string/group_tasks_label"
+      android:tooltipText="@string/group_tasks_label"
+      android:background="?attr/selectableItemBackground"
+      android:padding="@dimen/half_dynamic_spacing"
+      app:layout_constraintTop_toTopOf="@id/group_name"
+      app:layout_constraintBottom_toBottomOf="@id/group_name"
+      app:layout_constraintEnd_toEndOf="parent"/>
 
 
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

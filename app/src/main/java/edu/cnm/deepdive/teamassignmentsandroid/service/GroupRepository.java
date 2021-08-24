@@ -18,6 +18,7 @@ public class GroupRepository {
 
   /**
    * Passes context for google sign in.
+   *
    * @param context is received for current process.
    */
   public GroupRepository(Context context) {
@@ -28,6 +29,7 @@ public class GroupRepository {
 
   /**
    * Sets List of group, gets bearer token for authentication.
+   *
    * @return groups if bear token is authenticated.
    */
   public Single<List<Group>> getGroups() {
@@ -40,6 +42,7 @@ public class GroupRepository {
 
   /**
    * Gets List of groups.
+   *
    * @param ownedOnly are groups authenticated by user.
    * @return list of groups owned by user.
    */
@@ -51,21 +54,34 @@ public class GroupRepository {
 
   }
 
+  public Single<Group> getGroup(long groupId) {
+    return signInService.refreshBearerToken()
+        .observeOn(Schedulers.io())
+        .flatMap((bearerToken) -> webService.getGroup(groupId, bearerToken));
+  }
+
   /**
    * Saves single group to data base.
+   *
    * @param group is sent to database
    * @return group and bearer token
    */
   public Single<Group> saveGroup(Group group) {
-
     return signInService.refreshBearerToken()
         .observeOn(Schedulers.io())
-        .flatMap((bearerToken) -> webService.postGroup(group, bearerToken));
+        .flatMap((bearerToken) -> (group.getId() != 0)
+            ? webService
+                .renameGroup(group.getId(), group.getName(), bearerToken)
+                .map((name) -> group)
+            : webService
+                .postGroup(group, bearerToken)
+        );
 
   }
 
   /**
    * Gets List of tasks
+   *
    * @param groupId is retrieved from service proxy
    * @return list of tasks with id
    */

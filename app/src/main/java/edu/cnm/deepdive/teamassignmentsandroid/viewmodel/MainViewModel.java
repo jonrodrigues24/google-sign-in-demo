@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.teamassignmentsandroid.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Lifecycle.Event;
@@ -28,11 +29,14 @@ public class MainViewModel extends AndroidViewModel {
   private final MutableLiveData<Throwable> throwable;
   private final MutableLiveData<List<Group>> groups;
   private final MutableLiveData<List<Group>> ownedGroups;
+  private final MutableLiveData<Group> group;
+  private final MutableLiveData<Task> task;
   private final CompositeDisposable pending;
   private final GroupRepository groupRepository;
 
   /**
    * Manages data for acitivities and fragmetns.
+   *
    * @param application is only parameter accepted by viewModel constructor.
    */
   public MainViewModel(@NonNull Application application) {
@@ -43,16 +47,17 @@ public class MainViewModel extends AndroidViewModel {
     throwable = new MutableLiveData<>();
     groups = new MutableLiveData<>();
     ownedGroups = new MutableLiveData<>();
+    group = new MutableLiveData<>();
+    task = new MutableLiveData<>();
     pending = new CompositeDisposable();
     groupRepository = new GroupRepository(application);
     tasks = new MutableLiveData<>();
-    userFromServer();
     loadGroups();
-//    loadOwnedGroups();
   }
 
   /**
    * Gets group from model.Group.
+   *
    * @return group as live data.
    */
   public LiveData<List<Group>> getGroups() {
@@ -61,6 +66,7 @@ public class MainViewModel extends AndroidViewModel {
 
   /**
    * Gets Owned groups from management fragment.
+   *
    * @return list of owned groups.
    */
   public LiveData<List<Group>> getOwnedGroups() {
@@ -69,14 +75,24 @@ public class MainViewModel extends AndroidViewModel {
 
   /**
    * Gets tasks from pojo.
+   *
    * @return list of tasks.
    */
   public LiveData<List<Task>> getTasks() {
     return tasks;
   }
 
+  public LiveData<Group> getGroup() {
+    return group;
+  }
+
+  public LiveData<Task> getTask() {
+    return task;
+  }
+
   /**
    * Posts Task to thread to set given value.
+   *
    * @param groupId The group's id.
    */
   public void loadTasks(long groupId) {
@@ -85,8 +101,19 @@ public class MainViewModel extends AndroidViewModel {
         groupRepository.getTasks(groupId)
             .subscribe(
                 tasks::postValue,
-                throwable::postValue
+                this::postThrowable
             )
+    );
+  }
+
+  public void loadGroup(long groupId) {
+    throwable.postValue(null);
+    pending.add(
+      groupRepository.getGroup(groupId)
+          .subscribe(
+              group::postValue,
+              this::postThrowable
+          )
     );
   }
 
@@ -94,7 +121,7 @@ public class MainViewModel extends AndroidViewModel {
     userRepository.getUserProfile()
         .subscribe(
             user::postValue,
-            throwable::postValue
+            this::postThrowable
         );
   }
 
@@ -107,7 +134,7 @@ public class MainViewModel extends AndroidViewModel {
         groupRepository.getGroups()
             .subscribe(
                 groups::postValue,
-                throwable::postValue
+                this::postThrowable
             )
     );
   }
@@ -121,39 +148,41 @@ public class MainViewModel extends AndroidViewModel {
         groupRepository.getGroups(true)
             .subscribe(
                 ownedGroups::postValue,
-                throwable::postValue
+                this::postThrowable
             )
     );
   }
 
   /**
    * Groups come from management fragment and gets saved to the database.
-   * @param  group will be saved to database.
+   *
+   * @param group will be saved to database.
    */
   public void saveGroup(Group group) {
     throwable.postValue(null);
     pending.add(
         groupRepository.saveGroup(group)
             .subscribe(
-                (g) -> loadOwnedGroups(), //TODO explore alternative of adding group to current list of
+                (g) -> loadGroups(), //TODO explore alternative of adding group to current list of
                 //TODO groups we have in live data
-                throwable::postValue
+                this::postThrowable
             )
     );
   }
 
   /**
    * Saves a task to the database.
+   *
    * @param groupId id required to assign task
-   * @param task is assigned to group id
+   * @param task    is assigned to group id
    */
   public void saveTask(long groupId, Task task) {
     throwable.postValue(null);
     pending.add(
         groupRepository.saveTask(groupId, task)
             .subscribe(
-                (t) ->{},
-                throwable::postValue
+                (t) -> loadTasks(groupId),
+                this::postThrowable
             )
     );
   }
@@ -164,5 +193,10 @@ public class MainViewModel extends AndroidViewModel {
   @OnLifecycleEvent(Event.ON_STOP)
   private void clearPending() {
     pending.clear();
+  }
+  
+  private void postThrowable(Throwable throwable) {
+    Log.e(getClass().getSimpleName(), throwable.getMessage(), throwable);
+    this.throwable.postValue(throwable);
   }
 }

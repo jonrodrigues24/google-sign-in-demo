@@ -8,20 +8,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import edu.cnm.deepdive.teamassignmentsandroid.NavGraphDirections;
 import edu.cnm.deepdive.teamassignmentsandroid.adapter.GroupAdapter;
-import edu.cnm.deepdive.teamassignmentsandroid.adapter.GroupAdapter.OnGroupClickListener;
-import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentHomeBinding;
-import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
+import edu.cnm.deepdive.teamassignmentsandroid.adapter.GroupAdapter.OnGroupTasksClickListener;
+import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentGroupsBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 
 /**
  * This class creates the binding and inflates the Fragment layout and pasess groups and group ids to the view model.
  */
-public class HomeFragment extends Fragment implements OnGroupClickListener {
+public class GroupsFragment extends Fragment implements OnGroupTasksClickListener {
 
   private MainViewModel viewModel;
-  private FragmentHomeBinding binding;
+  private FragmentGroupsBinding binding;
 
   /**
    * Called to have the fragment instantiate its user interface view
@@ -34,7 +32,10 @@ public class HomeFragment extends Fragment implements OnGroupClickListener {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    binding = FragmentHomeBinding.inflate(inflater, container, false);
+    binding = FragmentGroupsBinding.inflate(inflater, container, false);
+    binding.createGroup.setOnClickListener((v) ->
+        Navigation.findNavController(binding.getRoot())
+            .navigate(GroupsFragmentDirections.editGroup()));
     return binding.getRoot();
   }
 
@@ -46,18 +47,12 @@ public class HomeFragment extends Fragment implements OnGroupClickListener {
   @Override
   public void onViewCreated(View view, Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+    viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     viewModel.getGroups().observe(getViewLifecycleOwner(), (groups) ->
         binding.groups.setAdapter(new GroupAdapter(groups, getContext(),
-            (v, groupId) ->
-            {
-              TasksFragment fragment = new TasksFragment();
-              Bundle args = new Bundle();
-              args.putLong(TasksFragment.GROUP_ID_KEY, groupId);
-              fragment.setArguments(args);
-              fragment.show(getChildFragmentManager(), fragment.getClass().getName());
-            }
-        )));
+            this::onGroupTasksClick,
+            (v, groupId) -> Navigation.findNavController(binding.getRoot())
+                .navigate(GroupsFragmentDirections.editGroup().setGroupId(groupId)))));
   }
 
 
@@ -65,10 +60,10 @@ public class HomeFragment extends Fragment implements OnGroupClickListener {
    * Helper method that passes group id to the viewholder.
    */
   @Override
-  public void onGroupClick(View view, long groupId) {
-    NavGraphDirections.OpenTasks toTaskFragment
-        = NavGraphDirections.openTasks(groupId);
-//    toTaskFragment.setGroupTasks(groupId)
+  public void onGroupTasksClick(View view, long groupId) {
+    GroupsFragmentDirections.OpenTasks toTaskFragment
+        = GroupsFragmentDirections.openTasks(groupId);
+
     //TODO set task array using group
     Navigation.findNavController(binding.getRoot()).navigate(toTaskFragment);
   }

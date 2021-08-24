@@ -5,43 +5,31 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
-import com.google.android.material.tabs.TabLayout.Tab;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import edu.cnm.deepdive.teamassignmentsandroid.R;
-import edu.cnm.deepdive.teamassignmentsandroid.adapter.FragmentAdapter;
-import edu.cnm.deepdive.teamassignmentsandroid.adapter.GroupAdapter;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.ActivityMainBinding;
-import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentHomeBinding;
-import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.service.GoogleSignInService;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
-import java.util.ArrayList;
 
 /**
  * Called when activity is started.  Contains the tab layout binding.
  */
 public class MainActivity extends AppCompatActivity {
 
-  TabLayout tabLayout;
-  ViewPager2 pager2;
-  GroupAdapter adapter;
   ActivityMainBinding binding;
-  FragmentAdapter fragmentAdapter;
 
   private MainViewModel viewModel;
-  private RelativeLayout relativeLayout;
-  private ArrayList<Group> groups;
+  private AppBarConfiguration appBarConfiguration;
+  private NavController navController;
+
 
   /**
    * Called when the activity is starting followed by initilization including tab layout.
+   *
    * @param savedInstanceState A mapping from String keys to various Parcelable values
    */
   @Override
@@ -51,68 +39,19 @@ public class MainActivity extends AppCompatActivity {
 
     setContentView(binding.getRoot());
 
-    tabLayout = findViewById(R.id.tab_layout);
-    pager2 = findViewById(R.id.view_pager2);
-
-    FragmentManager manager = getSupportFragmentManager();
-    fragmentAdapter = new FragmentAdapter(manager, getLifecycle());
-    binding.viewPager2.setAdapter(fragmentAdapter);
-
-    tabLayout.addTab(tabLayout.newTab().setText("Home"));
-    tabLayout.addTab(tabLayout.newTab().setText("Management"));
-
-    tabLayout.addOnTabSelectedListener(new OnTabSelectedListener() {
-      /**
-       * contains the necessary calls back to the provided ViewPager so that the tab position is kept in sync
-       * @param tab gets position for present screen
-       */
-      @Override
-      public void onTabSelected(Tab tab) {
-        pager2.setCurrentItem(tab.getPosition());
-      }
-
-      /**
-       *contains the necessary calls back to the provided ViewPager so that the tab position is kept in sync
-       * @param tab current state will be interpreted as unselected
-       */
-      @Override
-      public void onTabUnselected(Tab tab) {
-
-      }
-
-      /**
-       * Called when a tab that is already selected is chosen again by the user. Some applications may
-       * @param tab that was reselected.
-       */
-      @Override
-      public void onTabReselected(Tab tab) {
-
-      }
-    });
-
-    pager2.registerOnPageChangeCallback(new OnPageChangeCallback() {
-      @Override
-      public void onPageSelected(int position) {
-        tabLayout.selectTab(tabLayout.getTabAt(position));
-      }
-    });
-  }
-
-  private ArrayList<Group> getGroupList() {
-
-    ArrayList<Group> groups = new ArrayList<>();
-
-    Group group = new Group();
-    group.setName("name");
-    //group.setDescription("description");
-
-    return groups;
+    appBarConfiguration = new AppBarConfiguration.Builder(
+        R.id.groups_fragment, R.id.tasks_fragment
+    )
+        .build();
+    navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+    NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
   }
 
   /**
    * Prepare the Screen's standard options menu to be displayed. This is called right before the
    * menu is shown, every time it is shown. You can use this method to efficiently enable/disable
    * items or otherwise dynamically modify the contents.
+   *
    * @param menu Interface for managing the items in a menu
    * @return shows user the option to sign out
    */
@@ -124,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
   /**
    * This hook is called whenever an item in your options menu is selected.
+   *
    * @param item Interface for direct access to a previously created menu item
    * @return users choice to sign out is granted on click
    */
@@ -141,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public boolean onSupportNavigateUp() {
+    return NavigationUI.navigateUp(navController, appBarConfiguration)
+        || super.onSupportNavigateUp();
   }
 
   /**
