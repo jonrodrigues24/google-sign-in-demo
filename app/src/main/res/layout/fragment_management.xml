@@ -6,7 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:padding="@dimen/half_dynamic_spacing"
-  tools:context=".controller.HomeFragment">
+  tools:context=".controller.GroupsFragment">
 
   <Spinner
    android:accessibilityPaneTitle="Groups"
@@ -23,7 +23,7 @@
 
 
   <androidx.appcompat.widget.AppCompatButton
-    android:id="@+id/create_group"
+    android:id="@+id/edit_group"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
@@ -38,7 +38,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:text="ADD USER"
-    app:layout_constraintTop_toBottomOf="@id/create_group"
+    app:layout_constraintTop_toBottomOf="@id/edit_group"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"/>
 

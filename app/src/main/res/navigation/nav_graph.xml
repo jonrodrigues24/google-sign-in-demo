@@ -3,38 +3,91 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/nav_graph"
-  app:startDestination="@id/homeFragment">
+  app:startDestination="@id/groups_fragment">
 
-  <action
-    android:id="@+id/open_tasks"
-    app:destination="@id/task_dialog">
-    <argument
-      android:name="group_id"
-      app:argType="long"/>
-  </action>
 
-<!--  <fragment-->
-<!--    android:id="@+id/HomeFragment"/>-->
   <fragment
-    android:id="@+id/homeFragment"
-    android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.HomeFragment"
-    android:label="fragment_home"
-    tools:layout="@layout/fragment_home"/>
-  <fragment
-    android:id="@+id/managementFragment"
-    android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.ManagementFragment"
-    android:label="fragment_mangement"
-    tools:layout="@layout/fragment_management"/>
+    android:id="@+id/groups_fragment"
+    android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.GroupsFragment"
+    android:label="@string/groups_label"
+    tools:layout="@layout/fragment_groups">
 
-  <dialog
-    android:id="@+id/task_dialog"
+    <action
+      android:id="@+id/open_tasks"
+      app:destination="@id/tasks_fragment"
+      app:popUpTo="@id/groups_fragment">
+      <argument
+        android:name="group_id"
+        app:argType="long"/>
+    </action>
+
+    <action
+      android:id="@+id/edit_group"
+      app:destination="@id/edit_group_fragment">
+
+      <argument
+        android:name="group_id"
+        app:argType="long"
+        android:defaultValue="0L"/>
+
+    </action>
+  </fragment>
+
+  <fragment
+    android:id="@+id/tasks_fragment"
     android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.TasksFragment"
-    android:label="fragment_task"
+    android:label="@string/tasks_label"
     tools:layout="@layout/item_task">
 
     <argument
       android:name="group_id"
       app:argType="long"
+      />
+
+    <action
+      android:id="@+id/edit_task"
+      app:destination="@id/edit_task_fragment">
+
+      <argument
+        android:name="group_id"
+        app:argType="long"
+        />
+
+      <argument
+        android:name="task_id"
+        app:argType="long"
+        android:defaultValue="0L"
+        />
+
+
+    </action>
+  </fragment>
+
+  <dialog
+    android:id="@+id/edit_group_fragment"
+    android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.EditGroupFragment"
+    tools:layout="@layout/fragment_edit_group">
+
+    <argument
+      android:name="group_id"
+      app:argType="long"
+      android:defaultValue="0L"/>
+  </dialog>
+
+  <dialog
+    android:id="@+id/edit_task_fragment"
+    android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.EditTaskFragment"
+    tools:layout="@layout/fragment_edit_task">
+
+    <argument
+      android:name="group_id"
+      app:argType="long"
+      />
+
+    <argument
+      android:name="task_id"
+      app:argType="long"
+      android:defaultValue="0L"
       />
 
   </dialog>

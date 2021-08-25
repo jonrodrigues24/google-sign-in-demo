@@ -14,48 +14,54 @@ import java.text.DateFormat;
 import java.util.List;
 
 /**
- *  Adapter class that transfers task live data to the recycler view in the home fragment.
+ * Adapter class that transfers task live data to the recycler view in the home fragment.
  */
 public class TaskAdapter extends RecyclerView.Adapter<Holder> {
 
   private final List<Task> tasks;
   private final Context context;
   private final LayoutInflater inflater;
-  private final OnTaskClickListener listener;
+  private final OnTaskClickListener editTaskListener;
+  private final OnTaskClickListener deleteTaskListener;
 
   private final DateFormat dateFormat;
 
   /**
-   *
-   * @param tasks will populate list
-   * @param context is the source context which contains the existing shared preferences
-   * @param listener passes task id to holder
+   * @param tasks              will populate list
+   * @param context            is the source context which contains the existing shared preferences
+   * @param editTaskListener   passes task id to holder
+   * @param deleteTaskListener
    */
-  public TaskAdapter(List<Task> tasks, Context context, OnTaskClickListener listener) {
+  public TaskAdapter(List<Task> tasks, Context context, OnTaskClickListener editTaskListener,
+      OnTaskClickListener deleteTaskListener) {
     this.tasks = tasks;
     this.context = context;
     inflater = LayoutInflater.from(context);
-    this.listener = listener;
+    this.editTaskListener = editTaskListener;
     dateFormat = android.text.format.DateFormat.getDateFormat(context);
+    this.deleteTaskListener = deleteTaskListener;
   }
 
   /**
-   * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
-   * @param parent The view group is the base class for layouts and views containers
-   * @param viewType default implementation of this method returns 0, making the assumption of
-   * a single view type for the adapter
+   * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an
+   * item.
+   *
+   * @param parent   The view group is the base class for layouts and views containers
+   * @param viewType default implementation of this method returns 0, making the assumption of a
+   *                 single view type for the adapter
    * @return returns binding holder.
    */
   @NonNull
   @Override
   public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ItemTaskBinding binding = ItemTaskBinding.inflate(inflater, parent, false);
-    return new Holder(binding, listener);
+    return new Holder(binding);
   }
 
   /**
    * Called by RecyclerView to display the data at the specified position.
-   * @param holder Creates a viewholder for data binding by the recyclerview
+   *
+   * @param holder   Creates a viewholder for data binding by the recyclerview
    * @param position will reflect the item at the given position
    */
   @Override
@@ -73,44 +79,44 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
     return tasks.size();
   }
 
-  class Holder extends RecyclerView.ViewHolder implements OnClickListener {
+  class Holder extends RecyclerView.ViewHolder {
 
     private final ItemTaskBinding binding;
-    OnTaskClickListener listener;
     private Task task;
 
 
     /**
      * adds onclicklistener to viewholder.
+     *
      * @param binding A type which binds the views in a layout XML to fields
-     * @param listener Helper method that passes group id to the viewholder.
      */
-    Holder(ItemTaskBinding binding, OnTaskClickListener listener) {
+    Holder(ItemTaskBinding binding) {
       super(binding.getRoot());
       this.binding = binding;
-      this.listener = listener;
-      binding.getRoot().setOnClickListener(this);
     }
 
     /**
      * bind - connects current instance to view holder.
+     *
      * @param position is size of list of task
      */
     private void bind(int position) {
       task = tasks.get(position);
       binding.taskTitle.setText(task.getTitle());
-      binding.taskDescription.setText(task.getDescription());
-      binding.dueDate.setText(dateFormat.format(task.getDueDate()));
-      binding.getRoot().setOnClickListener(this);
-    }
-
-    /**
-     * passes position of a click to the view holder.
-     * @param v View occupies a rectangular area on the screen and is responsible for drawing and event handling
-     */
-    @Override
-    public void onClick(View v) {
-      listener.onTaskClick(v, task.getId());
+      if (task.getDescription() != null && !task.getDescription().isEmpty()) {
+        binding.taskDescription.setText(task.getDescription());
+        binding.taskDescription.setVisibility(View.VISIBLE);
+      } else {
+        binding.taskDescription.setVisibility(View.GONE);
+      }
+      if (task.getDueDate() != null) {
+        binding.dueDate.setText(dateFormat.format(task.getDueDate()));
+        binding.dueDate.setVisibility(View.VISIBLE);
+      } else {
+        binding.dueDate.setVisibility(View.GONE);
+      }
+      binding.editTask.setOnClickListener((v) -> editTaskListener.onTaskClick(v, task.getId()));
+      binding.deleteTask.setOnClickListener((v) -> deleteTaskListener.onTaskClick(v, task.getId()));
     }
   }
 

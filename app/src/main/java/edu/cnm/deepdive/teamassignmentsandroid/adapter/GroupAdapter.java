@@ -3,7 +3,6 @@ package edu.cnm.deepdive.teamassignmentsandroid.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,29 +20,41 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
   private final List<Group> groups;
   private final Context context;
 
-  private final OnGroupClickListener listener;
+  private final OnGroupActionClickListener tasksListener;
+
+  private final OnGroupActionClickListener editListener;
+  private final OnGroupActionClickListener deleteListener;
+
 
   private final LayoutInflater inflater;
 
   /**
    * Allows for implementation of default listener interfaces.
-   * @param groups List of groups.
-   * @param context interface allows access to application-specific resources and classes
-   * @param listener Helper method that passes group id to the viewholder.
-   *
+   *  @param groups                    List of groups.
+   * @param context                   interface allows access to application-specific resources and
+   *                                  classes
+   * @param tasksListener Helper method that passes group id to the viewholder.
+   * @param editListener
+   * @param deleteListener
    */
   public GroupAdapter(
       List<Group> groups, Context context,
-      OnGroupClickListener listener) {
+      OnGroupActionClickListener tasksListener,
+      OnGroupActionClickListener editListener,
+      OnGroupActionClickListener deleteListener) {
     this.groups = groups;
     this.context = context;
     inflater = LayoutInflater.from(context);
-    this.listener = listener;
+    this.tasksListener = tasksListener;
+    this.editListener = editListener;
+    this.deleteListener = deleteListener;
   }
 
   /**
-   * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an item.
-   * @param parent The view group is the base class for layouts and views containers
+   * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to represent an
+   * item.
+   *
+   * @param parent   The view group is the base class for layouts and views containers
    * @param viewType
    * @return returns binding holder.
    */
@@ -51,12 +62,13 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
   @Override
   public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     ItemGroupBinding binding = ItemGroupBinding.inflate(inflater, parent, false);
-    return new Holder(binding, listener);
+    return new Holder(binding);
   }
 
   /**
    * Called by RecyclerView to display the data at the specified position.
-   * @param holder Creates a viewholder for data binding by the recyclerview
+   *
+   * @param holder   Creates a viewholder for data binding by the recyclerview
    * @param position
    */
   @Override
@@ -78,52 +90,54 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
   /**
    * Creates a viewholder for data binding by the recyclerview.
    */
-  class Holder extends RecyclerView.ViewHolder implements OnClickListener {
+  class Holder extends RecyclerView.ViewHolder {
 
     private final ItemGroupBinding binding;
-    OnGroupClickListener listener;
 
     /**
      * adds onclicklistener to viewholder.
-     * @param binding A type which binds the views in a layout XML to fields
-     * @param listener Helper method that passes group id to the viewholder.
+     *
+     * @param binding  A type which binds the views in a layout XML to fields
      */
-    Holder(ItemGroupBinding binding, OnGroupClickListener listener) {
+    Holder(ItemGroupBinding binding) {
       super(binding.getRoot());
       this.binding = binding;
-      this.listener = listener;
-      binding.getRoot().setOnClickListener(this);
     }
 
     /**
      * bind - connects current instance to view holder.
+     *
      * @param position
      */
 
     private void bind(int position) {
       Group group = groups.get(position);
       binding.groupName.setText(group.getName());
-      binding.groupDescription.setText(group.getName());
-      binding.getRoot().setOnClickListener(this);
+      binding.groupTasks.setOnClickListener((v) ->
+          tasksListener.onGroupActionClick(v, group.getId()));
+      if (group.isCurrentUserOwner()) {
+        binding.editGroup.setVisibility(View.VISIBLE);
+        binding.deleteGroup.setVisibility(View.VISIBLE);
+        binding.editGroup.setOnClickListener((v) ->
+            editListener.onGroupActionClick(v, group.getId()));
+        binding.deleteGroup.setOnClickListener((v) ->
+            deleteListener.onGroupActionClick(v, group.getId()));
+      } else {
+        binding.editGroup.setVisibility(View.GONE);
+        binding.deleteGroup.setVisibility(View.GONE);
+      }
     }
 
-    /**
-     * passes position of a click to the view holder.
-     * @param v View occupies a rectangular area on the screen and is responsible for drawing and event handling
-     */
-    @Override
-    public void onClick(View v) {
-      listener.onGroupClick(v, groups.get(getBindingAdapterPosition()).getId());
-    }
   }
 
   /**
    * Helper method that passes group id to the viewholder.
    */
-  public interface OnGroupClickListener {
-    void onGroupClick(View view, long groupId);
-  }
 
+  public interface OnGroupActionClickListener {
+
+    void onGroupActionClick(View view, long groupId);
+  }
 
 
 }
