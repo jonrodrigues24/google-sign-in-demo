@@ -94,7 +94,7 @@ public class EditTaskFragment extends BottomSheetDialogFragment implements TextW
       Calendar dueDate = Calendar.getInstance();
       dueDate.set(year, month, day);
       task.setDueDate(dueDate.getTime());
-      viewModel.saveTask(groupId, task); //FIXME dont have a put to edit details of a task.
+      viewModel.saveTask(groupId, task);
       this.dismiss();
     });
     binding.cancel.setOnClickListener((v) -> this.dismiss());
@@ -114,10 +114,15 @@ public class EditTaskFragment extends BottomSheetDialogFragment implements TextW
     //noinspection ConstantConditions
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     if (taskId != 0) {
-      viewModel.getTask().observe(getViewLifecycleOwner(), (group) -> {
+      viewModel.getTask().observe(getViewLifecycleOwner(), (task) -> {
         Log.d(getClass().getSimpleName(), task.getTitle());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(task.getDueDate());
         this.task = task;
         binding.title.setText(task.getTitle());
+        binding.description.setText(task.getDescription());
+        binding.dueDate.updateDate(calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
       });
       viewModel.loadTask(groupId, taskId);
     } else {

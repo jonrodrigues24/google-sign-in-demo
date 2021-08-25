@@ -22,6 +22,7 @@ public class Group {
   private List<Task> tasks;
   @Expose
   private Set<User> users;
+  private boolean currentUserOwner;
 
   /**
    * Gets the name of the group
@@ -109,6 +110,14 @@ public class Group {
    */
   public void setUsers(Set<User> users) {
     this.users = users;
+  }
+
+  public boolean isCurrentUserOwner() {
+    return currentUserOwner;
+  }
+
+  public void setCurrentUserOwner(boolean currentUserOwner) {
+    this.currentUserOwner = currentUserOwner;
   }
 
   /**

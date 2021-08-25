@@ -48,10 +48,10 @@
       android:padding="@dimen/half_dynamic_spacing"
       app:layout_constraintTop_toTopOf="@id/group_name"
       app:layout_constraintBottom_toBottomOf="@id/group_name"
-      app:layout_constraintEnd_toStartOf="@id/delete_tasks"/>
+      app:layout_constraintEnd_toStartOf="@id/delete_group"/>
 
     <ImageButton
-      android:id="@+id/delete_tasks"
+      android:id="@+id/delete_group"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:src="@drawable/ic_delete"

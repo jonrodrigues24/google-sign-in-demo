@@ -44,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
     )
         .build();
     navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-    NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+    NavigationUI.setupActionBarWithNavController(this, navController);
+    //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
   }
 
   /**

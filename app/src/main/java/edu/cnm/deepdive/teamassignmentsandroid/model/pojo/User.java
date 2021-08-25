@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 
+import com.google.gson.annotations.Expose;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import java.util.Date;
@@ -11,9 +12,13 @@ import java.util.List;
  */
 public class User {
 
+  @Expose
   private Long id;
+  @Expose
   private Date connected;
+  @Expose
   private String displayName;
+  @Expose
   private Date creationDate;
   private String oauthKey;
   private final List<Group> groups = new LinkedList<>();

@@ -18,4 +18,6 @@
   <string name="edit_group_label">Edit group</string>
   <string name="group_tasks_label">Show Group Tasks</string>
   <string name="delete_group_label">Delete Group</string>
+  <string name="edit_task_label">Edit Task</string>
+  <string name="delete_task_label">Delete Task</string>
 </resources>

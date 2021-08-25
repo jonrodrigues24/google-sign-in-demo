@@ -9,9 +9,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.OnLifecycleEvent;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
+import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import edu.cnm.deepdive.teamassignmentsandroid.service.GroupRepository;
 import edu.cnm.deepdive.teamassignmentsandroid.service.UserRepository;
 import io.reactivex.disposables.CompositeDisposable;
@@ -52,7 +52,8 @@ public class MainViewModel extends AndroidViewModel {
     pending = new CompositeDisposable();
     groupRepository = new GroupRepository(application);
     tasks = new MutableLiveData<>();
-    loadGroups();
+    user.observeForever((user) -> loadGroups()); //TODO do we need to remove this observer
+    loadUser();
   }
 
   /**
@@ -109,11 +110,22 @@ public class MainViewModel extends AndroidViewModel {
   public void loadGroup(long groupId) {
     throwable.postValue(null);
     pending.add(
-      groupRepository.getGroup(groupId)
-          .subscribe(
-              group::postValue,
-              this::postThrowable
-          )
+        groupRepository.getGroup(groupId, user.getValue())
+            .subscribe(
+                group::postValue,
+                this::postThrowable
+            )
+    );
+  }
+
+  public void deleteGroup(long groupId) {
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.deleteGroup(groupId)
+            .subscribe(
+                this::loadGroups,
+                this::postThrowable
+            )
     );
   }
 
@@ -129,12 +141,15 @@ public class MainViewModel extends AndroidViewModel {
   }
 
 
-  private void userFromServer() {
-    userRepository.getUserProfile()
-        .subscribe(
-            user::postValue,
-            this::postThrowable
-        );
+  private void loadUser() {
+    throwable.postValue(null);
+    pending.add(
+        userRepository.getUserProfile()
+            .subscribe(
+                user::postValue,
+                this::postThrowable
+            )
+    );
   }
 
   /**
@@ -143,7 +158,7 @@ public class MainViewModel extends AndroidViewModel {
   public void loadGroups() {
     throwable.postValue(null);
     pending.add(
-        groupRepository.getGroups()
+        groupRepository.getGroups(user.getValue())
             .subscribe(
                 groups::postValue,
                 this::postThrowable
@@ -157,7 +172,7 @@ public class MainViewModel extends AndroidViewModel {
   public void loadOwnedGroups() {
     throwable.postValue(null);
     pending.add(
-        groupRepository.getGroups(true)
+        groupRepository.getGroups(true, null)
             .subscribe(
                 ownedGroups::postValue,
                 this::postThrowable
@@ -205,7 +220,7 @@ public class MainViewModel extends AndroidViewModel {
   private void clearPending() {
     pending.clear();
   }
-  
+
   private void postThrowable(Throwable throwable) {
     Log.e(getClass().getSimpleName(), throwable.getMessage(), throwable);
     this.throwable.postValue(throwable);

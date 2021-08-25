@@ -79,7 +79,11 @@ public class TasksFragment extends Fragment {
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     viewModel.getTasks().observe(getViewLifecycleOwner(), (tasks) -> {
       TaskAdapter adapter = new TaskAdapter(tasks, getContext(), (v, taskId) -> {
-        Log.d(getClass().getSimpleName(), String.valueOf(taskId));
+        Log.d(getClass().getSimpleName(), "edit task " + taskId);
+        //TODO navigate to edit task fragment
+      }, (v, taskId) -> {
+        Log.d(getClass().getSimpleName(), "delete task " + taskId);
+        //TODO invoke viewModel method to delete task
       });
       binding.tasks.setAdapter(adapter);
     });
