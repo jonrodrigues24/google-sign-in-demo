@@ -48,6 +48,19 @@
       android:padding="@dimen/half_dynamic_spacing"
       app:layout_constraintTop_toTopOf="@id/group_name"
       app:layout_constraintBottom_toBottomOf="@id/group_name"
+      app:layout_constraintEnd_toStartOf="@id/delete_tasks"/>
+
+    <ImageButton
+      android:id="@+id/delete_tasks"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_delete"
+      android:contentDescription="@string/delete_group_label"
+      android:tooltipText="@string/delete_group_label"
+      android:background="?attr/selectableItemBackground"
+      android:padding="@dimen/half_dynamic_spacing"
+      app:layout_constraintTop_toTopOf="@id/group_name"
+      app:layout_constraintBottom_toBottomOf="@id/group_name"
       app:layout_constraintEnd_toEndOf="parent"/>
 
 

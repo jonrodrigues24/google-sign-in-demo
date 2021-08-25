@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,6 @@ public class EditTaskFragment extends BottomSheetDialogFragment implements TextW
   public View onCreateView(@NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    //TODO return the view inflated while creating the dialog
     binding = FragmentEditTaskBinding.inflate(inflater, container, false);
     binding.title.addTextChangedListener(this);
     binding.submit.setOnClickListener((v) -> {
@@ -114,7 +114,11 @@ public class EditTaskFragment extends BottomSheetDialogFragment implements TextW
     //noinspection ConstantConditions
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     if (taskId != 0) {
-      //TODO set up observer to observe get task live data from view model and assign widget values from porperties from that task.
+      viewModel.getTask().observe(getViewLifecycleOwner(), (group) -> {
+        Log.d(getClass().getSimpleName(), task.getTitle());
+        this.task = task;
+        binding.title.setText(task.getTitle());
+      });
       viewModel.loadTask(groupId, taskId);
     } else {
       task = new Task();

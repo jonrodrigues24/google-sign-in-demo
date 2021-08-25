@@ -70,7 +70,6 @@ public class EditGroupFragment extends BottomSheetDialogFragment implements Text
   public View onCreateView(@NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    //TODO return the view inflated while creating the dialog
     binding = FragmentEditGroupBinding.inflate(inflater, container, false);
     binding.name.addTextChangedListener(this);
     binding.submit.setOnClickListener((v) -> {
@@ -95,7 +94,7 @@ public class EditGroupFragment extends BottomSheetDialogFragment implements Text
     //noinspection ConstantConditions
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     Log.d(getClass().getSimpleName(), String.valueOf(groupId));
-    if (groupId != 0) { // TODO repeat in editTaskFragment
+    if (groupId != 0) {
       viewModel.getGroup().observe(getViewLifecycleOwner(), (group) -> {
         Log.d(getClass().getSimpleName(), group.getName());
         this.group = group;

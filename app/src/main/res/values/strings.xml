@@ -17,4 +17,5 @@
   <string name="create_task_label">Create a new task</string>
   <string name="edit_group_label">Edit group</string>
   <string name="group_tasks_label">Show Group Tasks</string>
+  <string name="delete_group_label">Delete Group</string>
 </resources>

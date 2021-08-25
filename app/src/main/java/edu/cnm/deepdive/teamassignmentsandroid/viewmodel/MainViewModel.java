@@ -175,8 +175,7 @@ public class MainViewModel extends AndroidViewModel {
     pending.add(
         groupRepository.saveGroup(group)
             .subscribe(
-                (g) -> loadGroups(), //TODO explore alternative of adding group to current list of
-                //TODO groups we have in live data
+                (g) -> loadGroups(),
                 this::postThrowable
             )
     );
