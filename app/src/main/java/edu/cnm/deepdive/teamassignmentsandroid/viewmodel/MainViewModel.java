@@ -117,6 +117,18 @@ public class MainViewModel extends AndroidViewModel {
     );
   }
 
+  public void loadTask(long groupId, long taskId) {
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.getTask(groupId, taskId)
+            .subscribe(
+                task::postValue,
+                this::postThrowable
+            )
+    );
+  }
+
+
   private void userFromServer() {
     userRepository.getUserProfile()
         .subscribe(

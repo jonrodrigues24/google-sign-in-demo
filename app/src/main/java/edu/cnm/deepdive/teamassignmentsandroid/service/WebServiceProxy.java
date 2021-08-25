@@ -51,7 +51,8 @@ public interface WebServiceProxy {
   Single<List<Group>> getGroups(@Header("Authorization") String bearerToken);
 
   @GET("groups")
-  Single<List<Group>> getGroups(@Query("ownedOnly") boolean ownedOnly, @Header("Authorization") String bearerToken);
+  Single<List<Group>> getGroups(@Query("ownedOnly") boolean ownedOnly,
+      @Header("Authorization") String bearerToken);
 
 
   @PUT("groups/{id}/name")
@@ -74,13 +75,18 @@ public interface WebServiceProxy {
       @Header("Authorization") String bearerToken);
 
 
+  @GET("groups/{groupId}/tasks/{taskId}")
+  Single<Task> getTask(@Path("groupId") long groupId, @Path("taskId") long taskId,
+      @Header("Authorization") String bearerToken);
+
   @PUT("groups/{groupId}/tasks/{taskId}/members/{memberId}")
   Single<Boolean> putTask(@Body boolean assigned, @Path("groupId") long groupId,
       @Path("taskId") long taskId, @Path("memberId") long memberId,
       @Header("Authorization") String bearerToken);
 
   @GET("groups/{groupId}/tasks")
-  Single<List<Task>> getTasks (@Path("groupId") long groupId, @Header("Authorization") String bearerToken);
+  Single<List<Task>> getTasks(@Path("groupId") long groupId,
+      @Header("Authorization") String bearerToken);
 
   static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;

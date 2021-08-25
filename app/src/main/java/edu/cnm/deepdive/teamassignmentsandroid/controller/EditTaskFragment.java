@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentNewTaskBinding;
+import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentEditTaskBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
 import java.util.Calendar;
@@ -20,16 +20,14 @@ import java.util.Calendar;
  * This fragment contains methods to get and make new tasks.  It extends Bottom sheet dialog
  * fragment to populate the bottom pop up.
  */
-public class NewTaskFragment extends BottomSheetDialogFragment implements TextWatcher {
+public class EditTaskFragment extends BottomSheetDialogFragment implements TextWatcher {
 
-  /**
-   * group id is required to assign a task to the group
-   */
-  public static final String GROUP_ID_KEY = "group_id";
 
   private MainViewModel viewModel;
-  private FragmentNewTaskBinding binding;
+  private FragmentEditTaskBinding binding;
   private long groupId;
+  private long taskId;
+  private Task task;
 
   /**
    * requests group by id for user to add a task
@@ -41,7 +39,9 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
     super.onCreate(savedInstanceState);
     Bundle args = getArguments();
     if (args != null) {
-      groupId = NewTaskFragmentArgs.fromBundle(args).getGroupId();
+      EditTaskFragmentArgs editTaskFragmentArgs = EditTaskFragmentArgs.fromBundle(args);
+      groupId = editTaskFragmentArgs.getGroupId();
+      taskId = editTaskFragmentArgs.getTaskId();
     }
   }
 
@@ -80,10 +80,9 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     //TODO return the view inflated while creating the dialog
-    binding = FragmentNewTaskBinding.inflate(inflater, container, false);
+    binding = FragmentEditTaskBinding.inflate(inflater, container, false);
     binding.title.addTextChangedListener(this);
     binding.submit.setOnClickListener((v) -> {
-      Task task = new Task();
       task.setTitle(binding.title.getText().toString().trim());
       String description = binding.description.getText().toString().trim();
       if (!description.isEmpty()) {
@@ -95,7 +94,7 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
       Calendar dueDate = Calendar.getInstance();
       dueDate.set(year, month, day);
       task.setDueDate(dueDate.getTime());
-      viewModel.saveTask(groupId, task);
+      viewModel.saveTask(groupId, task); //FIXME dont have a put to edit details of a task.
       this.dismiss();
     });
     binding.cancel.setOnClickListener((v) -> this.dismiss());
@@ -114,6 +113,12 @@ public class NewTaskFragment extends BottomSheetDialogFragment implements TextWa
     super.onViewCreated(view, savedInstanceState);
     //noinspection ConstantConditions
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+    if (taskId != 0) {
+      //TODO set up observer to observe get task live data from view model and assign widget values from porperties from that task.
+      viewModel.loadTask(groupId, taskId);
+    } else {
+      task = new Task();
+    }
 
   }
 

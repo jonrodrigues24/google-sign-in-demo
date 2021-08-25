@@ -61,7 +61,7 @@ public class TasksFragment extends Fragment {
       @Nullable Bundle savedInstanceState) {
     binding = FragmentTasksBinding.inflate(inflater, container, false);
     binding.createTask.setOnClickListener((v) -> Navigation.findNavController(binding.getRoot())
-        .navigate(TasksFragmentDirections.createTask(groupId)));
+        .navigate(TasksFragmentDirections.editTask(groupId)));
     return binding.getRoot();
   }
 

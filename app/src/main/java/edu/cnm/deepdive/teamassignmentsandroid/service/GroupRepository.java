@@ -97,4 +97,9 @@ public class GroupRepository {
         .flatMap((bearerToken) -> webService.postTask(task, groupId, bearerToken));
   }
 
+  public Single<Task> getTask(long groupId, long taskId) {
+    return signInService.refreshBearerToken()
+        .observeOn(Schedulers.io())
+        .flatMap((bearerToken) -> webService.getTask(groupId, taskId, bearerToken));
+  }
 }

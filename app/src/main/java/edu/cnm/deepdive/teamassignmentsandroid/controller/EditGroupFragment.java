@@ -95,7 +95,7 @@ public class EditGroupFragment extends BottomSheetDialogFragment implements Text
     //noinspection ConstantConditions
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     Log.d(getClass().getSimpleName(), String.valueOf(groupId));
-    if (groupId != 0) {
+    if (groupId != 0) { // TODO repeat in editTaskFragment
       viewModel.getGroup().observe(getViewLifecycleOwner(), (group) -> {
         Log.d(getClass().getSimpleName(), group.getName());
         this.group = group;
