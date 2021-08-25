@@ -14,6 +14,7 @@ import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import edu.cnm.deepdive.teamassignmentsandroid.service.GroupRepository;
 import edu.cnm.deepdive.teamassignmentsandroid.service.UserRepository;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
 
@@ -52,7 +53,6 @@ public class MainViewModel extends AndroidViewModel {
     pending = new CompositeDisposable();
     groupRepository = new GroupRepository(application);
     tasks = new MutableLiveData<>();
-    user.observeForever((user) -> loadGroups()); //TODO do we need to remove this observer
     loadUser();
   }
 
@@ -145,8 +145,12 @@ public class MainViewModel extends AndroidViewModel {
     throwable.postValue(null);
     pending.add(
         userRepository.getUserProfile()
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                user::postValue,
+                (user) -> {
+                  this.user.setValue(user);
+                  loadGroups();
+                },
                 this::postThrowable
             )
     );
@@ -208,6 +212,17 @@ public class MainViewModel extends AndroidViewModel {
         groupRepository.saveTask(groupId, task)
             .subscribe(
                 (t) -> loadTasks(groupId),
+                this::postThrowable
+            )
+    );
+  }
+
+  public void deleteTask(long groupId, long taskId) {
+    throwable.postValue(null);
+    pending.add(
+        groupRepository.deleteTask(groupId, taskId)
+            .subscribe(
+                () -> loadTasks(groupId),
                 this::postThrowable
             )
     );

@@ -87,6 +87,9 @@ public interface WebServiceProxy {
   Single<List<Task>> getTasks(@Path("groupId") long groupId,
       @Header("Authorization") String bearerToken);
 
+  @DELETE("groups/{groupId}/tasks/{taskId}")
+  Completable deleteTask(@Path("groupId") long groupId, @Path("taskId") long taskId,@Header("Authorization") String bearerToken);
+
   static WebServiceProxy getInstance() {
     return InstanceHolder.INSTANCE;
   }

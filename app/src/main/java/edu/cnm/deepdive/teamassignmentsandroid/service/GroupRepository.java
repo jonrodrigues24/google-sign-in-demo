@@ -124,4 +124,11 @@ public class GroupRepository {
         .observeOn(Schedulers.io())
         .flatMap((bearerToken) -> webService.getTask(groupId, taskId, bearerToken));
   }
+
+  public Completable deleteTask(long groupId, long taskId) {
+    return signInService.refreshBearerToken()
+        .observeOn(Schedulers.io())
+        .flatMapCompletable((bearerToken) ->
+            webService.deleteTask(groupId, taskId, bearerToken));
+  }
 }

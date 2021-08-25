@@ -55,7 +55,7 @@ public class GroupsFragment extends Fragment {
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     viewModel.getGroups().observe(getViewLifecycleOwner(), (groups) ->
         binding.groups.setAdapter(new GroupAdapter(groups, getContext(),
-            (v, groupId1) -> onGroupTasksClick(groupId1),
+            (v, groupId) -> onGroupTasksClick(groupId),
             (v, groupId) -> onGroupEditClick(groupId),
             (v, groupId) -> onGroupDeleteClick(groupId))));
   }
@@ -72,8 +72,6 @@ public class GroupsFragment extends Fragment {
   public void onGroupTasksClick(long groupId) {
     GroupsFragmentDirections.OpenTasks toTaskFragment
         = GroupsFragmentDirections.openTasks(groupId);
-
-    //TODO set task array using group
     Navigation.findNavController(binding.getRoot()).navigate(toTaskFragment);
   }
 

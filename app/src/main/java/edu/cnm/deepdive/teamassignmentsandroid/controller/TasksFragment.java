@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import edu.cnm.deepdive.teamassignmentsandroid.R;
 import edu.cnm.deepdive.teamassignmentsandroid.adapter.TaskAdapter;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentTasksBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
@@ -79,14 +82,25 @@ public class TasksFragment extends Fragment {
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     viewModel.getTasks().observe(getViewLifecycleOwner(), (tasks) -> {
       TaskAdapter adapter = new TaskAdapter(tasks, getContext(), (v, taskId) -> {
-        Log.d(getClass().getSimpleName(), "edit task " + taskId);
-        //TODO navigate to edit task fragment
-      }, (v, taskId) -> {
-        Log.d(getClass().getSimpleName(), "delete task " + taskId);
-        //TODO invoke viewModel method to delete task
-      });
+        Navigation.findNavController(binding.getRoot()).navigate(
+            TasksFragmentDirections.editTask(groupId).setTaskId(taskId)
+        );
+      }, (v, taskId) -> onTaskDeleteClick(groupId,taskId));
       binding.tasks.setAdapter(adapter);
     });
+    viewModel.getGroup().observe(getViewLifecycleOwner(), (group) -> {
+      AppCompatActivity activity = (AppCompatActivity) getActivity();
+      ActionBar actionBar = activity.getSupportActionBar();
+      actionBar.setTitle(getString(R.string.tasks_title_format,actionBar.getTitle(), group.getName()));
+    });
     viewModel.loadTasks(groupId);
+    viewModel.loadGroup(groupId);
+
   }
+
+  private void onTaskDeleteClick(long groupId, long taskId) {
+    viewModel.deleteTask(groupId, taskId);
+  }
+
+
 }
