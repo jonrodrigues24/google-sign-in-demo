@@ -15,9 +15,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import edu.cnm.deepdive.teamassignmentsandroid.R;
 import edu.cnm.deepdive.teamassignmentsandroid.adapter.TaskAdapter;
+import edu.cnm.deepdive.teamassignmentsandroid.controller.ConfirmationFragment.Action;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentTasksBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
+import java.io.Serializable;
 
 /**
  * This fragment contains methods to get and set tasks to a group.  It extends Bottom sheet dialog
@@ -32,6 +34,8 @@ public class TasksFragment extends Fragment {
   private FragmentTasksBinding binding;
   private long groupId;
   private LiveData<Task> taskLiveData;
+  private CharSequence title;
+  private ActionBar actionBar;
 
   /**
    * Task fragment is initialized.
@@ -65,6 +69,9 @@ public class TasksFragment extends Fragment {
     binding = FragmentTasksBinding.inflate(inflater, container, false);
     binding.createTask.setOnClickListener((v) -> Navigation.findNavController(binding.getRoot())
         .navigate(TasksFragmentDirections.editTask(groupId)));
+    AppCompatActivity activity = (AppCompatActivity) getActivity();
+    actionBar = activity.getSupportActionBar();
+    title = actionBar.getTitle();
     return binding.getRoot();
   }
 
@@ -81,25 +88,26 @@ public class TasksFragment extends Fragment {
     //noinspection ConstantConditions
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     viewModel.getTasks().observe(getViewLifecycleOwner(), (tasks) -> {
-      TaskAdapter adapter = new TaskAdapter(tasks, getContext(), (v, taskId) -> {
+      TaskAdapter adapter = new TaskAdapter(tasks, getContext(), (v, task) -> {
         Navigation.findNavController(binding.getRoot()).navigate(
-            TasksFragmentDirections.editTask(groupId).setTaskId(taskId)
+            TasksFragmentDirections.editTask(groupId).setTaskId(task.getId())
         );
-      }, (v, taskId) -> onTaskDeleteClick(groupId,taskId));
+      }, (v, task) -> onTaskDeleteClick(groupId,task));
       binding.tasks.setAdapter(adapter);
     });
     viewModel.getGroup().observe(getViewLifecycleOwner(), (group) -> {
-      AppCompatActivity activity = (AppCompatActivity) getActivity();
-      ActionBar actionBar = activity.getSupportActionBar();
-      actionBar.setTitle(getString(R.string.tasks_title_format,actionBar.getTitle(), group.getName()));
+      actionBar.setTitle(getString(R.string.tasks_title_format,title, group.getName()));
     });
     viewModel.loadTasks(groupId);
     viewModel.loadGroup(groupId);
 
   }
 
-  private void onTaskDeleteClick(long groupId, long taskId) {
-    viewModel.deleteTask(groupId, taskId);
+  private void onTaskDeleteClick(long groupId, Task task) {
+    Navigation.findNavController(binding.getRoot())
+        .navigate(TasksFragmentDirections.confirmTaskDelete(task.getId(), task.getTitle(),
+            (Serializable & Action) () ->
+                viewModel.deleteTask(groupId,task.getId())));
   }
 
 

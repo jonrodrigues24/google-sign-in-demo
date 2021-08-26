@@ -21,4 +21,6 @@
   <string name="edit_task_label">Edit Task</string>
   <string name="delete_task_label">Delete Task</string>
   <string name="tasks_title_format">%2$s %1$s</string>
+  <string name="confirmation_title">Confirm Action</string>
+  <string name="delete_message">Are you sure you want to DELETE %s</string>
 </resources>

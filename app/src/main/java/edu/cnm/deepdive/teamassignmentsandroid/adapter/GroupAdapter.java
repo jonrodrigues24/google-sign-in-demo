@@ -114,14 +114,14 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
       Group group = groups.get(position);
       binding.groupName.setText(group.getName());
       binding.groupTasks.setOnClickListener((v) ->
-          tasksListener.onGroupActionClick(v, group.getId()));
+          tasksListener.onGroupActionClick(v, group));
       if (group.isCurrentUserOwner()) {
         binding.editGroup.setVisibility(View.VISIBLE);
         binding.deleteGroup.setVisibility(View.VISIBLE);
         binding.editGroup.setOnClickListener((v) ->
-            editListener.onGroupActionClick(v, group.getId()));
+            editListener.onGroupActionClick(v, group));
         binding.deleteGroup.setOnClickListener((v) ->
-            deleteListener.onGroupActionClick(v, group.getId()));
+            deleteListener.onGroupActionClick(v, group));
       } else {
         binding.editGroup.setVisibility(View.GONE);
         binding.deleteGroup.setVisibility(View.GONE);
@@ -136,7 +136,7 @@ public class GroupAdapter extends RecyclerView.Adapter<Holder> {
 
   public interface OnGroupActionClickListener {
 
-    void onGroupActionClick(View view, long groupId);
+    void onGroupActionClick(View view, Group group);
   }
 
 

@@ -115,8 +115,8 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
       } else {
         binding.dueDate.setVisibility(View.GONE);
       }
-      binding.editTask.setOnClickListener((v) -> editTaskListener.onTaskClick(v, task.getId()));
-      binding.deleteTask.setOnClickListener((v) -> deleteTaskListener.onTaskClick(v, task.getId()));
+      binding.editTask.setOnClickListener((v) -> editTaskListener.onTaskClick(v, task));
+      binding.deleteTask.setOnClickListener((v) -> deleteTaskListener.onTaskClick(v, task));
     }
   }
 
@@ -125,7 +125,7 @@ public class TaskAdapter extends RecyclerView.Adapter<Holder> {
    */
   public interface OnTaskClickListener {
 
-    void onTaskClick(View view, long taskId);
+    void onTaskClick(View view, Task task);
   }
 
 }

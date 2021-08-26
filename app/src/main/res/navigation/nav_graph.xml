@@ -31,6 +31,25 @@
         android:defaultValue="0L"/>
 
     </action>
+
+    <action
+      android:id="@+id/confirm_group_delete"
+      app:destination="@id/confirmation_fragment">
+
+      <argument
+        android:name="id"
+        app:argType="long"/>
+
+      <argument
+        android:name="subject"
+        app:argType="string"/>
+
+      <argument
+        android:name="action"
+        app:argType="java.io.Serializable"/>
+
+    </action>
+
   </fragment>
 
   <fragment
@@ -61,6 +80,25 @@
 
 
     </action>
+
+    <action
+      android:id="@+id/confirm_task_delete"
+      app:destination="@id/confirmation_fragment">
+
+      <argument
+        android:name="id"
+        app:argType="long"/>
+
+      <argument
+        android:name="subject"
+        app:argType="string"/>
+
+      <argument
+        android:name="action"
+        app:argType="java.io.Serializable"/>
+
+    </action>
+
   </fragment>
 
   <dialog
@@ -89,6 +127,24 @@
       app:argType="long"
       android:defaultValue="0L"
       />
+
+  </dialog>
+
+  <dialog
+    android:id="@+id/confirmation_fragment"
+    android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.ConfirmationFragment">
+
+    <argument
+      android:name="id"
+      app:argType="long"/>
+
+    <argument
+      android:name="subject"
+      app:argType="string"/>
+
+    <argument
+      android:name="action"
+      app:argType="java.io.Serializable"/>
 
   </dialog>
 
