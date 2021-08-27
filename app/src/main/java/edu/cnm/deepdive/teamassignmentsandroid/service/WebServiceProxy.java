@@ -8,7 +8,6 @@ import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import io.reactivex.Completable;
 import io.reactivex.Single;
-import java.util.Date;
 import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -16,12 +15,10 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -42,12 +39,10 @@ public interface WebServiceProxy {
   Single<Group> postGroup(@Body Group group, @Header("Authorization") String bearerToken);
 
   @PUT("groups/{groupId}/members/{userId}")
-  @Headers({"Accept: text/plain", "Content-Type: text/plain"})
   Single<Boolean> putMembership(@Body boolean inGroup, @Path("userId") long userId,
       @Path("groupId") long groupId, @Header("Authorization") String bearerToken);
 
   @GET("groups/{groupId}/members/{userId}")
-  @Headers({"Accept: text/plain"})
   Single<Boolean> getMembership(@Path("groupId") long groupId, @Path("groupId") long userId,
       @Header("Authorization") String bearerToken);
 
@@ -65,7 +60,6 @@ public interface WebServiceProxy {
       @Header("Authorization") String bearerToken);
 
   @PUT("groups/{id}/name")
-  @Headers({"Accept: text/plain", "Content-Type: text/plain"})
   Single<String> renameGroup(@Path("id") long id, @Body String name,
       @Header("Authorization") String bearerToken);
 
@@ -118,7 +112,6 @@ public interface WebServiceProxy {
           .build();
 
       Retrofit retrofit = new Retrofit.Builder()
-          .addConverterFactory(ScalarsConverterFactory.create())
           .addConverterFactory(GsonConverterFactory.create(gson))
           .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
           .client(client)
