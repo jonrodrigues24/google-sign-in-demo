@@ -5,7 +5,24 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".controller.LoginActivity">
+  tools:context=".controller.LoginActivity"
+  android:background="#70B0D0"
+  >
+
+  <ImageView
+    android:id="@+id/logo"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:adjustViewBounds="false"
+    android:cropToPadding="false"
+    android:scaleType="centerCrop"
+    android:src="@mipmap/bluetwo_foreground"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintDimensionRatio="1:1"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias=".2"/>
 
   <com.google.android.gms.common.SignInButton
     android:id="@+id/sign_in"
@@ -13,9 +30,9 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/half_dynamic_spacing"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/logo"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintVertical_bias=".4"/>
+    app:layout_constraintVertical_bias=".1"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
