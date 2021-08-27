@@ -8,9 +8,9 @@
     android:allowBackup="false"
     android:name="edu.cnm.deepdive.teamassignmentsandroid.SignInApplication"
     android:usesCleartextTraffic="true"
-    android:icon="@mipmap/ic_ta_launcher"
+    android:icon="@drawable/tablue"
     android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_ta_launcher_round"
+    android:roundIcon="@drawable/tablue"
     android:supportsRtl="true"
     android:theme="@style/Theme.TeamAssignments">
     <activity android:name="edu.cnm.deepdive.teamassignmentsandroid.controller.LoginActivity">

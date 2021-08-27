@@ -4,6 +4,7 @@ import android.content.Context;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.User;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import java.util.List;
 
 /**
  * Fetches User data from WebServiceProxy.
@@ -33,6 +34,12 @@ public class UserRepository {
         .observeOn(Schedulers.io())
         .flatMap((account) -> webService.getProfile(getBearerToken(account.getIdToken())))
         .subscribeOn(Schedulers.io());
+  }
+
+  public Single<List<User>> getAllUsers() {
+    return signInService.refreshBearerToken()
+        .observeOn(Schedulers.io())
+        .flatMap(webService::getUsers);
   }
 
   private String getBearerToken(String idToken) {
