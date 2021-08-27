@@ -34,6 +34,7 @@ public class MainViewModel extends AndroidViewModel {
   private final MutableLiveData<Task> task;
   private final CompositeDisposable pending;
   private final GroupRepository groupRepository;
+  private final MutableLiveData<List<User>> users;
 
   /**
    * Manages data for acitivities and fragmetns.
@@ -53,6 +54,7 @@ public class MainViewModel extends AndroidViewModel {
     pending = new CompositeDisposable();
     groupRepository = new GroupRepository(application);
     tasks = new MutableLiveData<>();
+    users = new MutableLiveData<>();
     loadUser();
   }
 
@@ -89,6 +91,10 @@ public class MainViewModel extends AndroidViewModel {
 
   public LiveData<Task> getTask() {
     return task;
+  }
+
+  public LiveData<List<User>> getUsers() {
+    return users;
   }
 
   /**
@@ -150,7 +156,19 @@ public class MainViewModel extends AndroidViewModel {
                 (user) -> {
                   this.user.setValue(user);
                   loadGroups();
+                  loadUsers();
                 },
+                this::postThrowable
+            )
+    );
+  }
+
+  public void loadUsers() {
+    throwable.postValue(null);
+    pending.add(
+        userRepository.getAllUsers()
+            .subscribe(
+                users::postValue,
                 this::postThrowable
             )
     );
@@ -191,10 +209,11 @@ public class MainViewModel extends AndroidViewModel {
    */
   public void saveGroup(Group group) {
     throwable.postValue(null);
+    Log.d(getClass().getSimpleName(), group.getUsers().toString());
     pending.add(
         groupRepository.saveGroup(group)
             .subscribe(
-                (g) -> loadGroups(),
+                this::loadGroups,
                 this::postThrowable
             )
     );

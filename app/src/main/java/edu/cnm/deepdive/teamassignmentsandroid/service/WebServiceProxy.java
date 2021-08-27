@@ -35,14 +35,19 @@ public interface WebServiceProxy {
   @GET("users/me")
   Single<User> getProfile(@Header("Authorization") String bearerToken);
 
+  @GET("users")
+  Single<List<User>> getUsers(@Header("Authorization") String bearerToken);
+
   @POST("groups")
   Single<Group> postGroup(@Body Group group, @Header("Authorization") String bearerToken);
 
   @PUT("groups/{groupId}/members/{userId}")
+  @Headers({"Accept: text/plain", "Content-Type: text/plain"})
   Single<Boolean> putMembership(@Body boolean inGroup, @Path("userId") long userId,
       @Path("groupId") long groupId, @Header("Authorization") String bearerToken);
 
   @GET("groups/{groupId}/members/{userId}")
+  @Headers({"Accept: text/plain"})
   Single<Boolean> getMembership(@Path("groupId") long groupId, @Path("groupId") long userId,
       @Header("Authorization") String bearerToken);
 
@@ -59,11 +64,13 @@ public interface WebServiceProxy {
   Single<List<Group>> getGroups(@Query("ownedOnly") boolean ownedOnly,
       @Header("Authorization") String bearerToken);
 
-
   @PUT("groups/{id}/name")
   @Headers({"Accept: text/plain", "Content-Type: text/plain"})
   Single<String> renameGroup(@Path("id") long id, @Body String name,
       @Header("Authorization") String bearerToken);
+
+  @GET("groups/{id}/members")
+  Single<List<User>> getMembers(@Path("id") long id, @Header("Authorization") String bearerToken);
 
   @POST("groups/{groupId}/tasks")
   Single<Task> postTask(@Body Task task, @Path("groupId") long groupId,

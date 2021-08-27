@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import edu.cnm.deepdive.teamassignmentsandroid.adapter.GroupMemberAdapter;
 import edu.cnm.deepdive.teamassignmentsandroid.databinding.FragmentEditGroupBinding;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.viewmodel.MainViewModel;
@@ -26,6 +27,7 @@ public class EditGroupFragment extends BottomSheetDialogFragment implements Text
   private FragmentEditGroupBinding binding;
   private long groupId;
   private Group group;
+  private GroupMemberAdapter adapter;
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +80,15 @@ public class EditGroupFragment extends BottomSheetDialogFragment implements Text
       this.dismiss();
     });
     binding.cancel.setOnClickListener((v) -> this.dismiss());
+    adapter = new GroupMemberAdapter(getContext(), (v, user, checked) -> {
+      if (checked) {
+        group.getUsers().add(user);
+      } else {
+        group.getUsers().remove(user);
+      }
+      Log.d(getClass().getSimpleName(), group.getUsers().toString());
+    });
+    binding.members.setAdapter(adapter);
     return binding.getRoot();
   }
 
@@ -93,12 +104,18 @@ public class EditGroupFragment extends BottomSheetDialogFragment implements Text
     super.onViewCreated(view, savedInstanceState);
     //noinspection ConstantConditions
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
-    Log.d(getClass().getSimpleName(), String.valueOf(groupId));
+    viewModel.getUsers().observe(getViewLifecycleOwner(), (users) -> {
+      adapter.clear();
+      adapter.addAll(users);
+      adapter.notifyDataSetChanged();
+    });
     if (groupId != 0) {
       viewModel.getGroup().observe(getViewLifecycleOwner(), (group) -> {
-        Log.d(getClass().getSimpleName(), group.getName());
         this.group = group;
         binding.name.setText(group.getName());
+        adapter.getMembers().clear();
+        adapter.getMembers().addAll(group.getUsers());
+        adapter.notifyDataSetChanged();
       });
       viewModel.loadGroup(groupId);
     } else {

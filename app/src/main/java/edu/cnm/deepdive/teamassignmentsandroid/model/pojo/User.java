@@ -1,5 +1,7 @@
 package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.google.gson.annotations.Expose;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Group;
 import edu.cnm.deepdive.teamassignmentsandroid.model.pojo.Task;
@@ -94,5 +96,30 @@ public class User {
    */
   public List<Task> getTasks() {
     return tasks;
+  }
+
+  @Override
+  public int hashCode() {
+    return id.hashCode();
+  }
+
+  @Override
+  public boolean equals(@Nullable Object obj) {
+    boolean comparison;
+    if (obj == this) {
+      comparison = true;
+    } else if (obj instanceof User) {
+      User other = (User) obj;
+      comparison = id != null && id.equals(other.id);
+    } else {
+      comparison = false;
+    }
+    return comparison;
+  }
+
+  @NonNull
+  @Override
+  public String toString() {
+    return displayName;
   }
 }

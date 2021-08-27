@@ -3,6 +3,8 @@ package edu.cnm.deepdive.teamassignmentsandroid.model.pojo;
 import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,10 +20,8 @@ public class Group {
   private User owner;
   @Expose
   private Date creationDate;
-  @Expose
-  private List<Task> tasks;
-  @Expose
-  private Set<User> users;
+  private final List<Task> tasks = new LinkedList<>();
+  private final Set<User> users = new LinkedHashSet<>();
   private boolean currentUserOwner;
 
   /**
@@ -88,13 +88,7 @@ public class Group {
     return tasks;
   }
 
-  /**
-   * Sets list of tasks to the group
-   * @param tasks of list
-   */
-  public void setTasks(List<Task> tasks) {
-    this.tasks = tasks;
-  }
+
 
   /**
    * Sets the user/owner of a group
@@ -104,13 +98,7 @@ public class Group {
     return users;
   }
 
-  /**
-   * sets the user of the groupe
-   * @param users of group
-   */
-  public void setUsers(Set<User> users) {
-    this.users = users;
-  }
+
 
   public boolean isCurrentUserOwner() {
     return currentUserOwner;
