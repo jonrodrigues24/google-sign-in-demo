@@ -66,14 +66,14 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$navigationVersion"
 
     //Google sign in library
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Gson (Google Json) dependency
-    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.google.code.gson:gson:2.8.8'
 
     // OkHttp library
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
@@ -86,7 +86,6 @@ dependencies {
     //Retrofit (Rest client) with ReactiveX and Gson integration
     def retrofit_version = '2.9.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
@@ -104,6 +103,6 @@ dependencies {
     implementation "androidx.room:room-rxjava2:$roomVersion"
 
     // Stetho (inspection) library
-    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho:1.6.0'
 
 }
